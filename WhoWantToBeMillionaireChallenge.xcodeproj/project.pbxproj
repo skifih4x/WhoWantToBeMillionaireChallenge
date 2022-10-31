@@ -10,9 +10,11 @@
 		00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D60290EE5C700CABB58 /* AppDelegate.swift */; };
 		00AD2D63290EE5C700CABB58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */; };
 		00AD2D65290EE5C700CABB58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* ViewController.swift */; };
-		00AD2D68290EE5C700CABB58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D66290EE5C700CABB58 /* Main.storyboard */; };
 		00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D69290EE5C800CABB58 /* Assets.xcassets */; };
 		00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */; };
+		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
+		D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65D291037AB005CD7E2 /* WinningCell.swift */; };
+		D955E66429103CC0005CD7E2 /* PrizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E66329103CC0005CD7E2 /* PrizeModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,10 +22,12 @@
 		00AD2D60290EE5C700CABB58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		00AD2D64290EE5C700CABB58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		00AD2D67290EE5C700CABB58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		00AD2D69290EE5C800CABB58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00AD2D6C290EE5C800CABB58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00AD2D6E290EE5C800CABB58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D955E65B291035ED005CD7E2 /* WinningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
+		D955E65D291037AB005CD7E2 /* WinningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningCell.swift; sourceTree = "<group>"; };
+		D955E66329103CC0005CD7E2 /* PrizeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,49 @@
 		00AD2D5F290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				00AD2D60290EE5C700CABB58 /* AppDelegate.swift */,
-				00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */,
-				00AD2D64290EE5C700CABB58 /* ViewController.swift */,
-				00AD2D66290EE5C700CABB58 /* Main.storyboard */,
+				D955E66129103C8C005CD7E2 /* App */,
+				D955E660291037C6005CD7E2 /* Controllers */,
+				D955E65F291037BB005CD7E2 /* Cells */,
+				D955E66229103C9D005CD7E2 /* Models */,
 				00AD2D69290EE5C800CABB58 /* Assets.xcassets */,
 				00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */,
 				00AD2D6E290EE5C800CABB58 /* Info.plist */,
 			);
 			path = WhoWantToBeMillionaireChallenge;
+			sourceTree = "<group>";
+		};
+		D955E65F291037BB005CD7E2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D955E65D291037AB005CD7E2 /* WinningCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D955E660291037C6005CD7E2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				00AD2D64290EE5C700CABB58 /* ViewController.swift */,
+				D955E65B291035ED005CD7E2 /* WinningViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D955E66129103C8C005CD7E2 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				00AD2D60290EE5C700CABB58 /* AppDelegate.swift */,
+				00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D955E66229103C9D005CD7E2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D955E66329103CC0005CD7E2 /* PrizeModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +165,6 @@
 			files = (
 				00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */,
 				00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */,
-				00AD2D68290EE5C700CABB58 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +176,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				00AD2D65290EE5C700CABB58 /* ViewController.swift in Sources */,
+				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
+				D955E66429103CC0005CD7E2 /* PrizeModel.swift in Sources */,
+				D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */,
 				00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */,
 				00AD2D63290EE5C700CABB58 /* SceneDelegate.swift in Sources */,
 			);
@@ -147,14 +187,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		00AD2D66290EE5C700CABB58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				00AD2D67290EE5C700CABB58 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,12 +319,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9FSXFWG34;
+				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -315,12 +347,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W9FSXFWG34;
+				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
