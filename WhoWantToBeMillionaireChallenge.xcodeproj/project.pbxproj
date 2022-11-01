@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5AF291148EF00610B9A /* QuestionModel.swift */; };
+		0056D5B22911491800610B9A /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B12911491800610B9A /* QuestionManager.swift */; };
+		0056D5B429114D9A00610B9A /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B329114D9A00610B9A /* RulesViewController.swift */; };
+		0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B529114DA500610B9A /* GameViewContoller.swift */; };
 		00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D60290EE5C700CABB58 /* AppDelegate.swift */; };
 		00AD2D63290EE5C700CABB58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */; };
-		00AD2D65290EE5C700CABB58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* ViewController.swift */; };
+		00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D69290EE5C800CABB58 /* Assets.xcassets */; };
 		00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */; };
 		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
@@ -18,10 +22,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0056D5AF291148EF00610B9A /* QuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionModel.swift; sourceTree = "<group>"; };
+		0056D5B12911491800610B9A /* QuestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
+		0056D5B329114D9A00610B9A /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
+		0056D5B529114DA500610B9A /* GameViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewContoller.swift; sourceTree = "<group>"; };
 		00AD2D5D290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhoWantToBeMillionaireChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00AD2D60290EE5C700CABB58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		00AD2D64290EE5C700CABB58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		00AD2D64290EE5C700CABB58 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		00AD2D69290EE5C800CABB58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00AD2D6C290EE5C800CABB58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00AD2D6E290EE5C800CABB58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0056D5B82911500A00610B9A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				00AD2D69290EE5C800CABB58 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		00AD2D54290EE5C700CABB58 = {
 			isa = PBXGroup;
 			children = (
@@ -64,9 +80,8 @@
 				D955E660291037C6005CD7E2 /* Controllers */,
 				D955E65F291037BB005CD7E2 /* Cells */,
 				D955E66229103C9D005CD7E2 /* Models */,
-				00AD2D69290EE5C800CABB58 /* Assets.xcassets */,
+				0056D5B82911500A00610B9A /* Resources */,
 				00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */,
-				00AD2D6E290EE5C800CABB58 /* Info.plist */,
 			);
 			path = WhoWantToBeMillionaireChallenge;
 			sourceTree = "<group>";
@@ -82,8 +97,10 @@
 		D955E660291037C6005CD7E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				00AD2D64290EE5C700CABB58 /* ViewController.swift */,
+				00AD2D64290EE5C700CABB58 /* StartViewController.swift */,
 				D955E65B291035ED005CD7E2 /* WinningViewController.swift */,
+				0056D5B329114D9A00610B9A /* RulesViewController.swift */,
+				0056D5B529114DA500610B9A /* GameViewContoller.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -93,6 +110,7 @@
 			children = (
 				00AD2D60290EE5C700CABB58 /* AppDelegate.swift */,
 				00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */,
+				00AD2D6E290EE5C800CABB58 /* Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -101,6 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				D955E66329103CC0005CD7E2 /* PrizeModel.swift */,
+				0056D5AF291148EF00610B9A /* QuestionModel.swift */,
+				0056D5B12911491800610B9A /* QuestionManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -175,8 +195,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AD2D65290EE5C700CABB58 /* ViewController.swift in Sources */,
+				0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */,
+				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
 				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
+				0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */,
+				0056D5B22911491800610B9A /* QuestionManager.swift in Sources */,
+				0056D5B429114D9A00610B9A /* RulesViewController.swift in Sources */,
 				D955E66429103CC0005CD7E2 /* PrizeModel.swift in Sources */,
 				D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */,
 				00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */,
@@ -321,7 +345,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/Info.plist;
+				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -349,7 +373,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 76N9URDUCT;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/Info.plist;
+				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

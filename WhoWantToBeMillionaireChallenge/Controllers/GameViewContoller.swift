@@ -1,19 +1,15 @@
 //
-//  ViewController.swift
+//  GameViewContoller.swift
 //  WhoWantToBeMillionaireChallenge
 //
-//  Created by Артем Орлов on 30.10.2022.
+//  Created by Артем Орлов on 01.11.2022.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class GameViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-
-
 }
-
