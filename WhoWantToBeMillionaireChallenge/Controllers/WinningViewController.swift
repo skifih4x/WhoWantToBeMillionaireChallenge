@@ -47,10 +47,18 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
         50
     }
 
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
         cell?.configure(model: WinModel.winModels[indexPath.row])
+        cell?.actionHandler = { [weak self] cell in
+            let alert = UIAlertController(title: "Поздравляем!",
+                                          message: "Вы выиграли \(WinModel.winModels[indexPath.row].prize.rawValue)",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+                self?.navigationController?.popViewController(animated: true)
+            }))
+            self?.present(alert, animated: true)
+        }
         return cell ?? UITableViewCell()
     }
 }

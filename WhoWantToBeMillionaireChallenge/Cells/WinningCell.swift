@@ -9,6 +9,11 @@ import UIKit
 
 class WinningCell: UITableViewCell {
 
+    var actionHandler: ((WinningCell) -> Void)?
+    @objc func takePrizeTapped() {
+            actionHandler?(self)
+        }
+
     static let identifier = "WinningCell"
 
     private let numberLabel: UILabel = {
@@ -34,14 +39,21 @@ class WinningCell: UITableViewCell {
         return imageView
     }()
 
-    private let takePrizeButton: UIButton = {
+    private lazy var takePrizeButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = .green
         button.setTitle("ЗАБРАТЬ", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(takePrizeTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+
+    private let backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -56,6 +68,7 @@ class WinningCell: UITableViewCell {
     }
 
     private func setupHierarchy() {
+        addSubview(backgroundImage)
         addSubview(numberLabel)
         addSubview(prizeLabel)
         addSubview(coinImage)
@@ -64,6 +77,11 @@ class WinningCell: UITableViewCell {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            backgroundImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            backgroundImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
+            backgroundImage.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+
             numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
 
@@ -81,6 +99,8 @@ class WinningCell: UITableViewCell {
             takePrizeButton.widthAnchor.constraint(equalToConstant: 90),
         ])
     }
+
+
 
     func configure(model: WinModel) {
         numberLabel.text = model.number.rawValue
