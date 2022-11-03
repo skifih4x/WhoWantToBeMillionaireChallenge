@@ -7,6 +7,25 @@
 
 import UIKit
 
+struct QuestionMain {
+    typealias typeQuestion = (answer: String, isCorrect: Bool)
+    let text: String
+    let answers: [typeQuestion]
+    let level: Int
+    
+    init(q: String, a: [typeQuestion], l: Int) {
+        text = q
+        answers = a
+        level = l
+    }
+}
+
+struct QuestionViewModel {
+    let question: String
+    let answersButtonsText: [String : String]
+    let correctAnswerButton: UIButton?
+}
+
 class GameViewContoller: UIViewController {
     
     private let backgroundImageView: UIImageView = {
@@ -39,6 +58,21 @@ class GameViewContoller: UIViewController {
     private let timerView = UIView()
     private let moneyLabel = UILabel()
     
+    // MARK: - Properties
+    private var currentQuestion: QuestionMain? {
+        didSet {
+            guard let currentQuestion = currentQuestion else {
+                return
+            }
+            questionViewModel = convert(model: currentQuestion)
+            guard let questionViewModel = questionViewModel else {
+                return
+            }
+            show(viewModel: questionViewModel)
+        }
+    }
+    private var questionViewModel: QuestionViewModel?
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +88,39 @@ class GameViewContoller: UIViewController {
 // MARK: - State's methods
 extension GameViewContoller {
     private func askQuestion() {
+        currentQuestion = getMockQuestion()
+    }
+    
+    private func convert(model: QuestionMain) -> QuestionViewModel {
+        let answers = model.answers.shuffled()
+        var dir = [String : String]()
+        var correctChar: String?
         
+        for (key, value) in ["A", "B", "C", "D"].enumerated() {
+            dir[value] = answers[key].answer
+            if answers[key].isCorrect {
+                correctChar = value
+            }
+        }
+        
+        let correctButton: UIButton?
+        switch correctChar {
+        case "A": correctButton = aButton
+        case "B": correctButton = bButton
+        case "C": correctButton = cButton
+        case "D": correctButton = dButton
+        default: correctButton = nil
+        }
+        
+        return QuestionViewModel(question: model.text, answersButtonsText: dir, correctAnswerButton: correctButton)
+    }
+    
+    private func show(viewModel: QuestionViewModel) {
+        questionLabel.text = viewModel.question
+        aButton.setTitle(viewModel.answersButtonsText["A"], for: .normal)
+        bButton.setTitle(viewModel.answersButtonsText["B"], for: .normal)
+        cButton.setTitle(viewModel.answersButtonsText["C"], for: .normal)
+        dButton.setTitle(viewModel.answersButtonsText["D"], for: .normal)
     }
 }
 
@@ -240,5 +306,21 @@ extension GameViewContoller {
     
     @objc func mistakeButtonTapped() {
         print("Делаем Есть возможность ошибиться")
+    }
+}
+
+// MARK: - Mock data
+extension GameViewContoller {
+    private func getMockQuestion() -> QuestionMain {
+        let question = QuestionMain(
+            q: "Способностью к быстрой смене ... славятся хамелеоны?",
+            a: [
+                (answer: "Цвета", isCorrect: true),
+                (answer: "Размера", isCorrect: false),
+                (answer: "Пола", isCorrect: false),
+                (answer: "Убеждений", isCorrect: false)
+            ],
+            l: 1)
+        return question
     }
 }
