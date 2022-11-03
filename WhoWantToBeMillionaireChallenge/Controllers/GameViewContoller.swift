@@ -24,6 +24,7 @@ struct QuestionViewModel {
     let question: String
     let answersButtonsText: [String : String]
     let correctAnswerButton: UIButton?
+    let correctAnswerLetter: String?
 }
 
 class GameViewContoller: UIViewController {
@@ -112,7 +113,7 @@ extension GameViewContoller {
         default: correctButton = nil
         }
         
-        return QuestionViewModel(question: model.text, answersButtonsText: dir, correctAnswerButton: correctButton)
+        return QuestionViewModel(question: model.text, answersButtonsText: dir, correctAnswerButton: correctButton, correctAnswerLetter: correctChar)
     }
     
     private func show(viewModel: QuestionViewModel) {
