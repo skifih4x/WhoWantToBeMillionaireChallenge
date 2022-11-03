@@ -330,8 +330,71 @@ extension GameViewContoller {
         [correctButton, remainButton].forEach { $0.isEnabled = true }
     }
     
-    @objc func helpButtonTapped() {
-        print("Делаем Помощь зала")
+    @objc func helpButtonTapped(sender: UIButton) {
+        print("Делаем Помощь зала ...")
+        
+        [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.showHelp()
+        }
+        
+        sender.isEnabled = false
+    }
+    
+    private func showHelp() {
+        guard let correctLetter = questionViewModel?.correctAnswerLetter else { return }
+        
+        // TODO: кнопок может быть 2 или 4
+        // TODO: можно добавить уровень вопроса - как вероятность правильного ответа
+        let distribution = getVotesDistribution(correctAnswer: correctLetter)
+        
+        let message = "Голоса распределились следующим образом:"
+        let alert = UIAlertController(title: "Помощь аудитории", message: message, preferredStyle: .actionSheet)
+        
+        let tapA = UIAlertAction(title: "A: " + distribution.a, style: .default) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.aButtonTapped(sender: strongSelf.aButton)
+        }
+        let tapB = UIAlertAction(title: "B: " + distribution.b, style: .default) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.aButtonTapped(sender: strongSelf.bButton)
+        }
+        let tapC = UIAlertAction(title: "C: " + distribution.c, style: .default) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.aButtonTapped(sender: strongSelf.cButton)
+        }
+        let tapD = UIAlertAction(title: "D: " + distribution.d, style: .default) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.aButtonTapped(sender: strongSelf.dButton)
+        }
+        
+        alert.addAction(tapA)
+        alert.addAction(tapB)
+        alert.addAction(tapC)
+        alert.addAction(tapD)
+        
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)  { [weak self] _ in
+            guard let strongSelf = self else { return }
+            [strongSelf.aButton, strongSelf.bButton, strongSelf.cButton, strongSelf.dButton].forEach { $0.isEnabled = true }
+        }
+        
+        alert.addAction(cancel)
+            
+        present(alert, animated: true)
+    }
+    
+    private func getVotesDistribution(correctAnswer: String) -> (a: String, b: String, c: String, d: String) {
+        var dir: [String : Int] = [:]
+        let arr = ["A", "B", "C", "D"] + Array(repeating: correctAnswer, count: 6)
+        for _ in 1...10 {
+            dir[arr.randomElement()!, default: 0] += 1
+        }
+        return (
+            a: String(format: "%.2f", Float(dir["A"] ?? 0) / 10 * 100) + "%",
+            b: String(format: "%.2f", Float(dir["B"] ?? 0) / 10 * 100) + "%",
+            c: String(format: "%.2f", Float(dir["C"] ?? 0) / 10 * 100) + "%",
+            d: String(format: "%.2f", Float(dir["D"] ?? 0) / 10 * 100) + "%"
+        )
     }
     
     @objc func mistakeButtonTapped(sender: UIButton) {
