@@ -292,8 +292,21 @@ extension GameViewContoller {
 
 // MARK: - Actions
 extension GameViewContoller {
-    @objc func aButtonTapped() {
-        print("Нажата кнопка с ответом")
+    @objc func aButtonTapped(sender: UIButton) {
+        print("Нажата кнопка с ответом ...")
+        
+        [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            guard let strongSelf = self else { return }
+            let correctButton = strongSelf.questionViewModel?.correctAnswerButton
+            if sender === correctButton {
+                print("И это правильный ответ!")
+            } else {
+                print("Вы ответили неправильно(")
+                sender.configuration?.background.backgroundColor = .systemRed
+            }
+            correctButton?.configuration?.background.backgroundColor = .systemGreen
+        }
     }
     
     @objc func fiftyButtonTapped() {
