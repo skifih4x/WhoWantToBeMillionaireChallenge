@@ -143,7 +143,7 @@ extension GameViewContoller {
         applyStyleImageButton(for: mistakeButton, imageName: "call")
         
         questionLabelView.backgroundColor = .separator
-        applyStyleLabel(for: questionLabel, text: "Мощность двигателя авто измеряют в ... силах Мощность двигателя авто измеряют в ... силах Мощность двигателя авто измеряют в ... силах")
+        applyStyleLabel(for: questionLabel, text: "Мощность двигателя авто измеряют в ... силах")
         
         applyStyleAnswerButton(for: aButton, title: "Тараканьих", imageName: "a.circle.fill", alignment: .left)
         applyStyleAnswerButton(for: bButton, title: "Муравьиных", imageName: "b.circle.fill", alignment: .left)
