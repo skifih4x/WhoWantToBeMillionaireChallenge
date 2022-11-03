@@ -309,8 +309,24 @@ extension GameViewContoller {
         }
     }
     
-    @objc func fiftyButtonTapped() {
-        print("Делаем 50/50")
+    @objc func fiftyButtonTapped(sender: UIButton) {
+        print("Делаем 50/50 ...")
+        
+        [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.removeTwoButtons()
+        }
+        
+        sender.isEnabled = false
+    }
+    
+    private func removeTwoButtons() {
+        guard let correctButton = questionViewModel?.correctAnswerButton else { return }
+        let remainButton = [aButton, bButton, cButton, dButton]
+            .filter { $0 != correctButton }
+            .randomElement()
+        guard let remainButton = remainButton else { return }
+        [correctButton, remainButton].forEach { $0.isEnabled = true }
     }
     
     @objc func helpButtonTapped() {
