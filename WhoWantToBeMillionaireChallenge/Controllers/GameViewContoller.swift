@@ -333,8 +333,25 @@ extension GameViewContoller {
         print("Делаем Помощь зала")
     }
     
-    @objc func mistakeButtonTapped() {
-        print("Делаем Есть возможность ошибиться")
+    @objc func mistakeButtonTapped(sender: UIButton) {
+        print("Делаем звонок умному другу ...")
+        
+        [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.showCorrectAnswer()
+        }
+        
+        sender.isEnabled = false
+    }
+    
+    private func showCorrectAnswer() {
+        guard let correctButton = questionViewModel?.correctAnswerButton,
+              let message = correctButton.currentTitle?.uppercased()
+        else { return }
+        let alert = UIAlertController(title: "Друг ответил: " + message, message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: nil))
+        present(alert, animated: true)
+        correctButton.isEnabled = true
     }
 }
 
