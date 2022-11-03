@@ -12,7 +12,8 @@ class WinningViewController: UIViewController {
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-        tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
+//        tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
+        tableView.backgroundColor = .red
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +41,7 @@ class WinningViewController: UIViewController {
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         WinModel.winModels.count
     }
@@ -50,6 +52,8 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
+        cell?.layer.backgroundColor = UIColor.clear.cgColor
+        cell?.contentView.backgroundColor = UIColor.clear
         cell?.configure(model: WinModel.winModels[indexPath.row])
         cell?.actionHandler = { [weak self] cell in
             let alert = UIAlertController(title: "Поздравляем!",
