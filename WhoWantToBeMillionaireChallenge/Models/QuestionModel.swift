@@ -5,14 +5,15 @@
 //  Created by Артем Орлов on 01.11.2022.
 //
 
-struct Question {
-    let text: String
-    let answer: [String]
-    let correct: String
-    
-    init(q: String, a: [String], correctAnswer: String) {
-        text = q
-        answer = a
-        correct = correctAnswer
-    }
+struct QuestionMain {
+  typealias typeQuestion = (answer: String, isCorrect: Bool)
+  let text: String
+  let answers: [typeQuestion]
+  let level: Int
+   
+  init(q: String, a: [typeQuestion], l: Int) {
+    text = q
+    answers = a
+    level = l
+  }
 }
