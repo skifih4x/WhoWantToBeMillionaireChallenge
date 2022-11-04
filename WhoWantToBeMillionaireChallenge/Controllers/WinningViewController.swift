@@ -12,12 +12,22 @@ class WinningViewController: UIViewController {
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-//        tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
-        tableView.backgroundColor = .red
+        tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+    
+    private lazy var continueButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .green
+        button.setTitle("ПРОДОЛЖИТЬ", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
     override func viewDidLoad() {
@@ -28,6 +38,7 @@ class WinningViewController: UIViewController {
 
     private func setupHierarchy() {
         view.addSubview(prizeTableView)
+        view.addSubview(continueButton)
     }
 
     private func setupLayout() {
@@ -38,6 +49,11 @@ class WinningViewController: UIViewController {
             prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         ])
     }
+
+    @objc func continueTapped() {
+
+    }
+
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
@@ -52,8 +68,6 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
-        cell?.layer.backgroundColor = UIColor.clear.cgColor
-        cell?.contentView.backgroundColor = UIColor.clear
         cell?.configure(model: WinModel.winModels[indexPath.row])
         cell?.actionHandler = { [weak self] cell in
             let alert = UIAlertController(title: "Поздравляем!",

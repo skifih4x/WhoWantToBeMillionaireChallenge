@@ -10,9 +10,7 @@ import UIKit
 class WinningCell: UITableViewCell {
 
     var actionHandler: ((WinningCell) -> Void)?
-    @objc func takePrizeTapped() {
-            actionHandler?(self)
-        }
+
 
     static let identifier = "WinningCell"
 
@@ -100,7 +98,9 @@ class WinningCell: UITableViewCell {
         ])
     }
 
-
+    @objc func takePrizeTapped() {
+            actionHandler?(self)
+        }
 
     func configure(model: WinModel) {
         numberLabel.text = model.number.rawValue
