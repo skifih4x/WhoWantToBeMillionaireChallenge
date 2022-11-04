@@ -7,10 +7,9 @@
 
 import UIKit
 
-class WinningCell: UITableViewCell {
+final class WinningCell: UITableViewCell {
 
-    var actionHandler: ((WinningCell) -> Void)?
-
+    var actionHandler: ((WinningCell) -> ())?
 
     static let identifier = "WinningCell"
 

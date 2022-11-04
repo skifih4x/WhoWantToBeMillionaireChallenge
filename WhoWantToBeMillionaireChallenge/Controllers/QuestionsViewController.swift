@@ -7,7 +7,7 @@
 
 import UIKit
 
-class QuestionsViewController: UIViewController {
+final class QuestionsViewController: UIViewController {
 
     private lazy var button: UIButton = {
         let button = UIButton()
@@ -33,11 +33,10 @@ class QuestionsViewController: UIViewController {
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             button.heightAnchor.constraint(equalToConstant: 50),
             button.widthAnchor.constraint(equalToConstant: 50)
-            ])
+        ])
     }
 
     @objc func buttonTapped() {
         navigationController?.pushViewController(WinningViewController(), animated: true)
-        
     }
 }

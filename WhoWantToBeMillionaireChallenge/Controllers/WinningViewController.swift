@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WinningViewController: UIViewController {
+final class WinningViewController: UIViewController {
 
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
@@ -56,9 +56,8 @@ class WinningViewController: UIViewController {
     }
 
     @objc func continueTapped() {
-
+        // Переход на экран Сергея
     }
-
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
