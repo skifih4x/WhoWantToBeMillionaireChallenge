@@ -13,6 +13,7 @@ final class WinningViewController: UIViewController {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
         tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
+//        tableView.backgroundColor = .red
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +44,7 @@ final class WinningViewController: UIViewController {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            prizeTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             prizeTableView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -10),
             prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
@@ -72,6 +73,7 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
+        cell?.backgroundColor = .clear
         cell?.configure(model: WinModel.winModels[indexPath.row])
         cell?.actionHandler = { [weak self] cell in
             let alert = UIAlertController(title: "Поздравляем!",
