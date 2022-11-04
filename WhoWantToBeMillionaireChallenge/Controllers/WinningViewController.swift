@@ -12,8 +12,8 @@ final class WinningViewController: UIViewController {
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-        tableView.backgroundView = UIImageView(image: UIImage(named: "backgroundTableView"))
-//        tableView.backgroundColor = .red
+        tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
+        tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
