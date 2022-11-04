@@ -5,8 +5,6 @@
 //  Created by Артем Галай on 31.10.22.
 //
 
-import Foundation
-
 enum Prize: String {
     case one = "100"
     case two = "200"
