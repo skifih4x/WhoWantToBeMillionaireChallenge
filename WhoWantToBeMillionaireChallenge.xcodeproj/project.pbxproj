@@ -19,6 +19,7 @@
 		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
 		D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65D291037AB005CD7E2 /* WinningCell.swift */; };
 		D955E66429103CC0005CD7E2 /* PrizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E66329103CC0005CD7E2 /* PrizeModel.swift */; };
+		D955E666291177DE005CD7E2 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E665291177DE005CD7E2 /* QuestionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		D955E65B291035ED005CD7E2 /* WinningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
 		D955E65D291037AB005CD7E2 /* WinningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningCell.swift; sourceTree = "<group>"; };
 		D955E66329103CC0005CD7E2 /* PrizeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeModel.swift; sourceTree = "<group>"; };
+		D955E665291177DE005CD7E2 /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +99,9 @@
 		D955E660291037C6005CD7E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				00AD2D64290EE5C700CABB58 /* StartViewController.swift */,
+				00AD2D64290EE5C700CABB58 /* ViewController.swift */,
+				D955E665291177DE005CD7E2 /* QuestionsViewController.swift */,
+         		00AD2D64290EE5C700CABB58 /* StartViewController.swift */,
 				D955E65B291035ED005CD7E2 /* WinningViewController.swift */,
 				0056D5B329114D9A00610B9A /* RulesViewController.swift */,
 				0056D5B529114DA500610B9A /* GameViewContoller.swift */,
@@ -195,6 +199,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00AD2D65290EE5C700CABB58 /* ViewController.swift in Sources */,
+				D955E666291177DE005CD7E2 /* QuestionsViewController.swift in Sources */,
 				0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */,
 				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
 				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
