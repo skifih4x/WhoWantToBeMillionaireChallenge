@@ -8,19 +8,16 @@
 import UIKit
 
 class RulesViewController: UIViewController {
-    // Title(Правила игры)
     let titleLabel = UILabel()
-    // Кнокпа "Назад"
     let backButton = UIButton()
-    let scroll = UIScrollView()
-    let contentView = UILabel()
+    let textView = UITextView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.jpg")!)
         
-        style() // Красота
-        layout()// Разметка
+        style()
+        layout()
     }
 }
 
@@ -32,7 +29,7 @@ extension RulesViewController {
         titleLabel.textColor = .white
         titleLabel.font = UIFont.systemFont(ofSize: 25)
         
-        contentView.text = """
+        textView.text = """
     "Игра Кто хочет стать миллионером? - это конкурс викторина, в котором участники должны правильно ответить на ряд вопросов с несколькими вариантами ответов, чтобы перейти на следующий уровень. Всего 15 вопросов, каждый вопрос стоит определенной суммы денег, участники не имеют никаких временных ограничений для предоставления ответа. Участники также получают три вида подсказок, чтобы помочь себе, если они застряли на конкретном вопросе.
         
     Вопросы “Кто хочет стать миллионером?” структурированы в соответствии с пятью различными уровнями, причем уровень сложности постепенно увеличивается. Каждый уровень содержит три вопроса.
@@ -73,20 +70,14 @@ extension RulesViewController {
     Задать вопрос аудитории - залу задают тот же вопрос, что и участнику, и проводится быстрый опрос, чтобы показать их ответы. На диаграмме показывается явное преимущество определенного варианта, эта подсказка может быть чрезвычайно полезной. Участнику дается возможность согласиться с результатами, полученными от аудитории.
 
     Позвоните другу - участникам разрешается сделать 30-секундный звонок другу или члену семьи и спросить, знают ли они ответ на вопрос.
-
-
 """
         
-        contentView.textColor = .white
-        contentView.numberOfLines = 0
-        contentView.sizeToFit()
-        
+        textView.textColor = .white
+        textView.backgroundColor = .clear
+
         backButton.setTitle("Назад", for: .normal)
         backButton.layer.cornerRadius = 5
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        scroll.backgroundColor = .orange
-        scroll.layer.cornerRadius = 20
         
     }
     
@@ -94,59 +85,33 @@ extension RulesViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        textView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(scroll)
-        scroll.addSubview(contentView)
+        view.addSubview(textView)
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backButton)
         
-        
         NSLayoutConstraint.activate([
-            //Правила игры
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 10),
             
-            
-//            scroll.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 20),
-//            scroll.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 2),
-//            view.trailingAnchor.constraint(equalToSystemSpacingAfter: scroll.trailingAnchor, multiplier: 2),
-//
-//            contentView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
-//            scroll.heightAnchor.constraint(equalToConstant: 500),
+            textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            view.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: 10),
+            textView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10),
 
-            contentView.leftAnchor.constraint(equalToSystemSpacingAfter: scroll.leftAnchor, multiplier: 2),
-            scroll.rightAnchor.constraint(equalToSystemSpacingAfter: contentView.rightAnchor, multiplier: -2),
-
-            contentView.widthAnchor.constraint(equalTo: scroll.widthAnchor),
-
-            scroll.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scroll.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            scroll.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 1/3),
-            scroll.heightAnchor.constraint(equalToConstant: 500),
-            
-            
-            // Кнопка
             view.bottomAnchor.constraint(equalToSystemSpacingBelow: backButton.bottomAnchor, multiplier: 10),
             backButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 7),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: backButton.trailingAnchor, multiplier: 7),
             backButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        ])
+            ])
     }
-    
-    
 }
 
 extension RulesViewController {
     @objc func backButtonTapped(sender: UIButton) {
         dismiss(animated: true)
-        // present
     }
-    
 }
 
-//textView(stackView) прижать к safeArea
-//present, dismiss
