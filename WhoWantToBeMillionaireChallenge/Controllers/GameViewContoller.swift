@@ -54,10 +54,7 @@ class GameViewContoller: UIViewController {
     private let cButton = UIButton()
     private let dButton = UIButton()
     
-    private let serviceStackView = UIStackView()
-    private let takeMoneyButton = UIButton()
-    private let timerView = UIView()
-    private let moneyLabel = UILabel()
+    private let statusProgressView = UIProgressView()
     
     // MARK: - Properties
     private var currentQuestion: QuestionMain? {
@@ -74,6 +71,10 @@ class GameViewContoller: UIViewController {
     }
     private var questionViewModel: QuestionViewModel?
     
+    private let totalTime = 30
+    private var secondsPassed = 0
+    private var timer = Timer()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +84,7 @@ class GameViewContoller: UIViewController {
         applyLayout()
         
         askQuestion()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
 }
 
@@ -136,6 +138,8 @@ extension GameViewContoller {
         fiftyButton.addTarget(self, action: #selector(fiftyButtonTapped), for: .primaryActionTriggered)
         helpButton.addTarget(self, action: #selector(helpButtonTapped), for: .primaryActionTriggered)
         mistakeButton.addTarget(self, action: #selector(mistakeButtonTapped), for: .primaryActionTriggered)
+        
+        statusProgressView.progress = 0.0
     }
     
     private func applyStyle() {
@@ -151,12 +155,12 @@ extension GameViewContoller {
         applyStyleAnswerButton(for: cButton, title: "Голубиных", imageName: "c.circle.fill", alignment: .left)
         applyStyleAnswerButton(for: dButton, title: "Лошадиных", imageName: "d.circle.fill", alignment: .left)
         
-        applyStyleAnswerButton(for: takeMoneyButton, title: "Взять деньги")
-        applyStyleLabel(for: moneyLabel, text: "$100", textColor: .systemYellow ,numberOfLines: 1)
+        statusProgressView.progressViewStyle = .bar
+        statusProgressView.progressTintColor = .systemYellow
+        statusProgressView.trackTintColor = .systemGray
     }
     
     private func applyLayout() {
-        
         arrangeStackView(
             for: hintButtonsStackView,
                subviews: [leftPaddingView, fiftyButton, helpButton, mistakeButton, rightPaddingView]
@@ -164,9 +168,7 @@ extension GameViewContoller {
                 
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         questionLabelView.addSubview(questionLabel)
-        
-        questionLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        
+                
         arrangeStackView(
             for: answerButtonsStackView,
                subviews: [aButton, bButton, cButton, dButton],
@@ -174,18 +176,10 @@ extension GameViewContoller {
                axis: .vertical,
                distribution: .fillEqually
         )
-                
-        arrangeStackView(
-            for: serviceStackView,
-               subviews: [takeMoneyButton, moneyLabel],
-               spacing: 20.0
-        )
-        
-        moneyLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         arrangeStackView(
             for: mainStackView,
-               subviews: [hintButtonsStackView, questionLabelView, answerButtonsStackView, serviceStackView],
+               subviews: [hintButtonsStackView, questionLabelView, statusProgressView, answerButtonsStackView],
                spacing: 10.0,
                axis: .vertical
         )
@@ -204,21 +198,23 @@ extension GameViewContoller {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
             
             helpButton.heightAnchor.constraint(equalTo: helpButton.widthAnchor, multiplier: 2/3),
             fiftyButton.heightAnchor.constraint(equalTo: fiftyButton.widthAnchor, multiplier: 2/3),
             mistakeButton.heightAnchor.constraint(equalTo: mistakeButton.widthAnchor, multiplier: 2/3),
             leftPaddingView.widthAnchor.constraint(equalTo: rightPaddingView.widthAnchor),
+            hintButtonsStackView.heightAnchor.constraint(equalToConstant: 60),
             
             questionLabel.leadingAnchor.constraint(equalTo: questionLabelView.leadingAnchor, constant: 20),
             questionLabel.trailingAnchor.constraint(equalTo: questionLabelView.trailingAnchor, constant: -20),
             questionLabel.topAnchor.constraint(equalTo: questionLabelView.topAnchor),
             questionLabel.bottomAnchor.constraint(equalTo: questionLabelView.bottomAnchor),
             
-            aButton.heightAnchor.constraint(equalToConstant: 32),
+            aButton.heightAnchor.constraint(equalToConstant: 40),
             
-            serviceStackView.heightAnchor.constraint(equalToConstant: 40)
+            statusProgressView.heightAnchor.constraint(equalToConstant: 5)
+            
         ])
     }
     
@@ -293,9 +289,20 @@ extension GameViewContoller {
 
 // MARK: - Actions
 extension GameViewContoller {
+    @objc func updateTimer() {
+        if totalTime > secondsPassed {
+            secondsPassed += 1
+            let percentProgress = Float(secondsPassed) / Float(totalTime)
+            statusProgressView.progress = percentProgress
+        } else {
+            timer.invalidate()
+        }
+    }
+    
     @objc func aButtonTapped(sender: UIButton) {
         print("Нажата кнопка с ответом ...")
         
+        timer.invalidate()
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let strongSelf = self else { return }
