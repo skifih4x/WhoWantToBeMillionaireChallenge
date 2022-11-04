@@ -44,9 +44,14 @@ class WinningViewController: UIViewController {
     private func setupLayout() {
         NSLayoutConstraint.activate([
             prizeTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            prizeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            prizeTableView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -10),
             prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
+            prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            continueButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
@@ -63,7 +68,7 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        50
+        44
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
