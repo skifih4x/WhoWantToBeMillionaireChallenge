@@ -14,7 +14,6 @@ enum Sounds:String {
     case falseAnswer = "FalseAnswer"
     case waitResults = "WaitResults"
     case win = "Win"
-
 }
 
 struct SoundsModel {
@@ -39,7 +38,9 @@ struct SoundsModel {
         let url = Bundle.main.url(forResource: correntSound, withExtension: "mp3")
         player = try! AVAudioPlayer(contentsOf: url!)
         player!.play()
-        
     }
     
+    func stopSound() {
+        player?.stop()
+    }
 }
