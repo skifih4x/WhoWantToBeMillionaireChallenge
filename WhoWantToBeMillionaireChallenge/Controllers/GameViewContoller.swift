@@ -6,20 +6,6 @@
 //
 
 import UIKit
-var playSound = SoundsModel()
-
-struct QuestionMain {
-    typealias typeQuestion = (answer: String, isCorrect: Bool)
-    let text: String
-    let answers: [typeQuestion]
-    let level: Int
-    
-    init(q: String, a: [typeQuestion], l: Int) {
-        text = q
-        answers = a
-        level = l
-    }
-}
 
 struct QuestionViewModel {
     let question: String
@@ -67,7 +53,9 @@ class GameViewContoller: UIViewController {
             guard let questionViewModel = questionViewModel else {
                 return
             }
+            prepareRound()
             show(viewModel: questionViewModel)
+            startTimer()
         }
     }
     private var questionViewModel: QuestionViewModel?
@@ -75,6 +63,8 @@ class GameViewContoller: UIViewController {
     private let totalTime = 30
     private var secondsPassed = 0
     private var timer = Timer()
+    
+    private var playSound = SoundsModel()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -100,10 +90,6 @@ class GameViewContoller: UIViewController {
 
 // MARK: - State's methods
 extension GameViewContoller {
-    private func askQuestion() {
-        currentQuestion = getMockQuestion()
-    }
-    
     private func convert(model: QuestionMain) -> QuestionViewModel {
         let answers = model.answers.shuffled()
         var dir = [String : String]()
@@ -134,6 +120,26 @@ extension GameViewContoller {
         bButton.setTitle(viewModel.answersButtonsText["B"], for: .normal)
         cButton.setTitle(viewModel.answersButtonsText["C"], for: .normal)
         dButton.setTitle(viewModel.answersButtonsText["D"], for: .normal)
+    }
+    
+    private func askQuestion() {
+        currentQuestion = getMockQuestion()
+    }
+    
+    private func prepareRound() {
+        [aButton, bButton, cButton, dButton].forEach { item in
+            item.configuration?.background.backgroundColor = .systemFill
+            item.isHidden = false
+            item.isEnabled = true
+        }
+        
+        statusProgressView.progress = 0.0
+    }
+    
+    private func startTimer() {
+        playSound.sound(.pickAnswer)
+        secondsPassed = 0
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
 }
 
@@ -324,10 +330,10 @@ extension GameViewContoller {
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
             if sender === correctButton {
                 print("И это правильный ответ!")
-                playSound.sound(.trueAnswer)
+                strongSelf.playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
-                playSound.sound(.falseAnswer)
+                strongSelf.playSound.sound(.falseAnswer)
 
                 sender.configuration?.background.backgroundColor = .systemRed
             }
