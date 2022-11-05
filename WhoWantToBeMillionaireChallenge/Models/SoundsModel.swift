@@ -14,33 +14,57 @@ enum Sounds:String {
     case falseAnswer = "FalseAnswer"
     case waitResults = "WaitResults"
     case win = "Win"
+    case fifty = "Fifty"
+    case voting = "AuditoryVoting"
+    case call = "Call"
 }
 
 struct SoundsModel {
-    var player: AVAudioPlayer?
-    var correntSound = String()
+    private var player: AVAudioPlayer?
+    private var helpPlayer: AVAudioPlayer?
+    private var currentSound = String()
+    
     mutating func sound(_ pick: Sounds) {
-        player?.stop()
         
         switch pick {
         case .pickAnswer:
-            correntSound = "PickAnswer"
+            currentSound = Sounds.pickAnswer.rawValue
         case .trueAnswer:
-            correntSound = "TrueAnswer"
+            currentSound = Sounds.trueAnswer.rawValue
         case .falseAnswer:
-            correntSound = "FalseAnswer"
+            currentSound = Sounds.falseAnswer.rawValue
         case .waitResults:
-            correntSound = "WaitResults"
+            currentSound = Sounds.waitResults.rawValue
         case .win:
-            correntSound = "Win"
+            currentSound = Sounds.win.rawValue
+        case .fifty:
+            let urlFifty = Bundle.main.url(forResource: Sounds.fifty.rawValue, withExtension: "mp3")
+            helpPlayer = try! AVAudioPlayer(contentsOf: urlFifty!)
+            helpPlayer!.play()
+            return
+        case .voting:
+            let urlVoting = Bundle.main.url(forResource: Sounds.voting.rawValue, withExtension: "mp3")
+            helpPlayer = try! AVAudioPlayer(contentsOf: urlVoting!)
+            helpPlayer!.play()
+            return
+        case .call:
+            let urlVoting = Bundle.main.url(forResource: Sounds.call.rawValue, withExtension: "mp3")
+            helpPlayer = try! AVAudioPlayer(contentsOf: urlVoting!)
+            helpPlayer!.play()
+            return
         }
-        
-        let url = Bundle.main.url(forResource: correntSound, withExtension: "mp3")
+        helpPlayer?.stop()
+        player?.stop()
+        let url = Bundle.main.url(forResource: currentSound, withExtension: "mp3")
         player = try! AVAudioPlayer(contentsOf: url!)
         player!.play()
     }
     
-    func stopSound() {
+    func stopMainSound() {
         player?.stop()
+    }
+    
+    func stopHelpSound() {
+        helpPlayer?.stop()
     }
 }

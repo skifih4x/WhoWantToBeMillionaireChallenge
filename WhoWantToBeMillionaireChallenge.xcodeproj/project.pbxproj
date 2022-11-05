@@ -21,6 +21,10 @@
 		0178E99A291669D2000190B0 /* FalseAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E999291669D2000190B0 /* FalseAnswer.mp3 */; };
 		0178E99C29166A2E000190B0 /* WaitResults.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E99B29166A2E000190B0 /* WaitResults.mp3 */; };
 		0178E99E29166A66000190B0 /* Win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E99D29166A66000190B0 /* Win.mp3 */; };
+		018E05662916F83200CBBD3D /* Fifty.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E05652916F83200CBBD3D /* Fifty.mp3 */; };
+		018E05682916FB2400CBBD3D /* AuditoryVoting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E05672916FB2400CBBD3D /* AuditoryVoting.mp3 */; };
+		018E056A2917084500CBBD3D /* Calldel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E05692917084500CBBD3D /* Calldel.mp3 */; };
+		018E056C2917134900CBBD3D /* Call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E056B2917134900CBBD3D /* Call.mp3 */; };
 		5ABE6AFB291690CF00713CAC /* PickAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5ABE6AFA291690CF00713CAC /* PickAnswer.mp3 */; };
 		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
 		D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65D291037AB005CD7E2 /* WinningCell.swift */; };
@@ -44,6 +48,10 @@
 		0178E999291669D2000190B0 /* FalseAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FalseAnswer.mp3; sourceTree = "<group>"; };
 		0178E99B29166A2E000190B0 /* WaitResults.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WaitResults.mp3; sourceTree = "<group>"; };
 		0178E99D29166A66000190B0 /* Win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Win.mp3; sourceTree = "<group>"; };
+		018E05652916F83200CBBD3D /* Fifty.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Fifty.mp3; sourceTree = "<group>"; };
+		018E05672916FB2400CBBD3D /* AuditoryVoting.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = AuditoryVoting.mp3; sourceTree = "<group>"; };
+		018E05692917084500CBBD3D /* Calldel.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Calldel.mp3; sourceTree = "<group>"; };
+		018E056B2917134900CBBD3D /* Call.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Call.mp3; sourceTree = "<group>"; };
 		5ABE6AFA291690CF00713CAC /* PickAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = PickAnswer.mp3; sourceTree = "<group>"; };
 		D955E65B291035ED005CD7E2 /* WinningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
 		D955E65D291037AB005CD7E2 /* WinningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningCell.swift; sourceTree = "<group>"; };
@@ -64,6 +72,10 @@
 		0056D5B82911500A00610B9A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				018E056B2917134900CBBD3D /* Call.mp3 */,
+				018E05692917084500CBBD3D /* Calldel.mp3 */,
+				018E05672916FB2400CBBD3D /* AuditoryVoting.mp3 */,
+				018E05652916F83200CBBD3D /* Fifty.mp3 */,
 				5ABE6AFA291690CF00713CAC /* PickAnswer.mp3 */,
 				0178E9972916696F000190B0 /* TrueAnswer.mp3 */,
 				0178E999291669D2000190B0 /* FalseAnswer.mp3 */,
@@ -202,12 +214,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				0178E9982916696F000190B0 /* TrueAnswer.mp3 in Resources */,
+				018E05662916F83200CBBD3D /* Fifty.mp3 in Resources */,
+				018E056A2917084500CBBD3D /* Calldel.mp3 in Resources */,
 				00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */,
 				0178E99A291669D2000190B0 /* FalseAnswer.mp3 in Resources */,
 				5ABE6AFB291690CF00713CAC /* PickAnswer.mp3 in Resources */,
 				0178E99E29166A66000190B0 /* Win.mp3 in Resources */,
+				018E056C2917134900CBBD3D /* Call.mp3 in Resources */,
 				0178E99C29166A2E000190B0 /* WaitResults.mp3 in Resources */,
 				00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */,
+				018E05682916FB2400CBBD3D /* AuditoryVoting.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
