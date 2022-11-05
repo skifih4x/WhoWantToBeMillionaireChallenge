@@ -9,10 +9,18 @@ import UIKit
 
 final class WinningViewController: UIViewController {
 
+    var level: Int?
+
+    private let backgroundView: UIImageView = {
+        let imageViewBackground = UIImageView(frame: UIScreen.main.bounds)
+        imageViewBackground.image = UIImage(named: "background")
+        imageViewBackground.translatesAutoresizingMaskIntoConstraints = false
+        return imageViewBackground
+    }()
+
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-        tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -22,7 +30,7 @@ final class WinningViewController: UIViewController {
     
     private lazy var continueButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = .green
+        button.backgroundColor = .systemMint
         button.setTitle("ПРОДОЛЖИТЬ", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
         button.layer.cornerRadius = 10
@@ -31,15 +39,33 @@ final class WinningViewController: UIViewController {
         return button
     }()
 
+    private lazy var takePrizeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = .systemMint
+        button.setTitle("ЗАБРАТЬ", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(takePrizeTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
         setupLayout()
+        level = 5
+//        level = Int.random(in: 0...15)
+//        let indexPath = IndexPath(row: level!, section: 0)
+//        prizeTableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+//        prizeTableView.delegate?.tableView!(prizeTableView, didSelectRowAt: indexPath)
     }
 
     private func setupHierarchy() {
+        view.addSubview(backgroundView)
         view.addSubview(prizeTableView)
         view.addSubview(continueButton)
+        view.addSubview(takePrizeButton)
     }
 
     private func setupLayout() {
@@ -50,16 +76,30 @@ final class WinningViewController: UIViewController {
             prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
 
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            continueButton.heightAnchor.constraint(equalToConstant: 40)
+            continueButton.heightAnchor.constraint(equalToConstant: 60),
+            continueButton.widthAnchor.constraint(equalToConstant: 175),
+
+            takePrizeButton.centerYAnchor.constraint(equalTo: continueButton.centerYAnchor),
+            takePrizeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            takePrizeButton.heightAnchor.constraint(equalToConstant: 60),
+            takePrizeButton.widthAnchor.constraint(equalToConstant: 175)
         ])
     }
 
     @objc func continueTapped() {
-        // Переход на экран Сергея
         navigationController?.popViewController(animated: true)
     }
+
+    @objc func takePrizeTapped() {
+        let alert = UIAlertController(title: "Поздравляем!",
+                                      message: "Вы выиграли \(WinModel.winModels[level!].prize.rawValue)",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
+            self?.navigationController?.popToRootViewController(animated: true)
+        }))
+        present(alert, animated: true)
+        }
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
@@ -76,15 +116,11 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
         cell?.backgroundColor = .clear
         cell?.configure(model: WinModel.winModels[indexPath.row])
-        cell?.actionHandler = { [weak self] cell in
-            let alert = UIAlertController(title: "Поздравляем!",
-                                          message: "Вы выиграли \(WinModel.winModels[indexPath.row].prize.rawValue)",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
-                self?.navigationController?.popToRootViewController(animated: true)
-            }))
-            self?.present(alert, animated: true)
-        }
         return cell ?? UITableViewCell()
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let indexPath = IndexPath(row: 13, section: 0)
+//        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
     }
 }

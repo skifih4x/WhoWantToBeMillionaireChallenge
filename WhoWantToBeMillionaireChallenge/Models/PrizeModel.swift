@@ -4,64 +4,46 @@
 //
 //  Created by Артем Галай on 31.10.22.
 //
+import UIKit
 
 enum Prize: String {
     case one = "100"
     case two = "200"
     case three = "300"
     case four = "500"
-    case five = "1000"
-    case six = "2000"
-    case seven = "4000"
-    case eight = "8000"
-    case nine = "16000"
-    case ten = "32000"
-    case eleven = "64000"
-    case twelve = "125000"
-    case thirteen = "250000"
-    case fourteen = "500000"
-    case fifteen = "МИЛЛИОН"
+    case five = "1 000"
+    case six = "2 000"
+    case seven = "4 000"
+    case eight = "8 000"
+    case nine = "16 000"
+    case ten = "32 000"
+    case eleven = "64 000"
+    case twelve = "125 000"
+    case thirteen = "250 000"
+    case fourteen = "500 000"
+    case fifteen = "1 000 000"
 }
-
-enum Number: String {
-    case one = "1"
-    case two = "2"
-    case three = "3"
-    case four = "4"
-    case five = "5"
-    case six = "6"
-    case seven = "7"
-    case eight = "8"
-    case nine = "9"
-    case ten = "10"
-    case eleven = "11"
-    case twelve = "12"
-    case thirteen = "13"
-    case fourteen = "14"
-    case fifteen = "15"
-}
-
 struct WinModel {
-    var number: Number
     var prize: Prize
+    var backgroundcolorLabel: UIColor?
 }
 
 extension WinModel {
     static var winModels: [WinModel] = [
-        WinModel(number: Number.fifteen, prize: Prize.fifteen),
-        WinModel(number: Number.fourteen, prize: Prize.fourteen),
-        WinModel(number: Number.thirteen, prize: Prize.thirteen),
-        WinModel(number: Number.twelve, prize: Prize.twelve),
-        WinModel(number: Number.eleven, prize: Prize.eleven),
-        WinModel(number: Number.ten, prize: Prize.ten),
-        WinModel(number: Number.nine, prize: Prize.nine),
-        WinModel(number: Number.eight, prize: Prize.eight),
-        WinModel(number: Number.seven, prize: Prize.seven),
-        WinModel(number: Number.six, prize: Prize.six),
-        WinModel(number: Number.five, prize: Prize.five),
-        WinModel(number: Number.four, prize: Prize.four),
-        WinModel(number: Number.three, prize: Prize.three),
-        WinModel(number: Number.two, prize: Prize.two),
-        WinModel(number: Number.one, prize: Prize.one)
+        WinModel(prize: Prize.fifteen, backgroundcolorLabel: #colorLiteral(red: 0.8990883231, green: 0.9641856551, blue: 0, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.fourteen, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.thirteen, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.twelve, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.eleven, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.ten, backgroundcolorLabel: .systemMint.withAlphaComponent(0.5)),
+        WinModel(prize: Prize.nine, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.eight, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.seven, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.six, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.five, backgroundcolorLabel: .systemMint.withAlphaComponent(0.5)),
+        WinModel(prize: Prize.four, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.three, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.two, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5)),
+        WinModel(prize: Prize.one, backgroundcolorLabel: #colorLiteral(red: 0.1559615731, green: 0.2938378453, blue: 1, alpha: 1).withAlphaComponent(0.5))
     ]
 }
