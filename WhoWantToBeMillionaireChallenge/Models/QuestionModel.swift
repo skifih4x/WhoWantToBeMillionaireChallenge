@@ -6,14 +6,14 @@
 //
 
 struct QuestionMain {
-  typealias typeQuestion = (answer: String, isCorrect: Bool)
-  let text: String
-  let answers: [typeQuestion]
-  let level: Int
-   
-  init(q: String, a: [typeQuestion], l: Int) {
-    text = q
-    answers = a
-    level = l
-  }
+    typealias typeQuestion = (answer: String, isCorrect: Bool)
+    let text: String
+    let answers: [typeQuestion]
+    let level: Int
+    
+    init(q: String, a: [typeQuestion], l: Int) {
+        text = q
+        answers = a
+        level = l
+    }
 }
