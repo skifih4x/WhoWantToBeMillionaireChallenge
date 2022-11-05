@@ -9,10 +9,16 @@ import UIKit
 
 final class WinningViewController: UIViewController {
 
+    private let backgroundView: UIImageView = {
+        let imageViewBackground = UIImageView(frame: UIScreen.main.bounds)
+        imageViewBackground.image = UIImage(named: "background")
+        imageViewBackground.translatesAutoresizingMaskIntoConstraints = false
+        return imageViewBackground
+    }()
+
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-        tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -38,16 +44,17 @@ final class WinningViewController: UIViewController {
     }
 
     private func setupHierarchy() {
+        view.addSubview(backgroundView)
         view.addSubview(prizeTableView)
         view.addSubview(continueButton)
     }
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             prizeTableView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -10),
-            prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),

@@ -67,6 +67,7 @@ extension StartViewController {
 
 extension StartViewController {
     @objc func playButtonTapped(sender: UIButton) {
+        navigationController?.pushViewController(WinningViewController(), animated: true)
         print("Начали играть!")
     }
     
