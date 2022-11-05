@@ -8,11 +8,18 @@
 import UIKit
 
 final class WinningViewController: UIViewController {
-    
+
+    private let backgroundView: UIImageView = {
+        let imageViewBackground = UIImageView(frame: UIScreen.main.bounds)
+        imageViewBackground.image = UIImage(named: "background")
+        imageViewBackground.translatesAutoresizingMaskIntoConstraints = false
+        return imageViewBackground
+    }()
+
+
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
-        tableView.backgroundView = UIImageView(image: UIImage(named: "background"))
         tableView.backgroundColor = .clear
         tableView.dataSource = self
         tableView.delegate = self
@@ -30,32 +37,33 @@ final class WinningViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHierarchy()
         setupLayout()
     }
-    
+
     private func setupHierarchy() {
+        view.addSubview(backgroundView)
         view.addSubview(prizeTableView)
         view.addSubview(continueButton)
     }
-    
+
     private func setupLayout() {
         NSLayoutConstraint.activate([
             prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             prizeTableView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -10),
             prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            
+
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             continueButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
+
     @objc func continueTapped() {
         // Переход на экран Сергея
         navigationController?.popViewController(animated: true)
@@ -63,15 +71,15 @@ final class WinningViewController: UIViewController {
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         WinModel.winModels.count
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
         cell?.backgroundColor = .clear
