@@ -13,7 +13,6 @@
 		0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B529114DA500610B9A /* GameViewContoller.swift */; };
 		00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D60290EE5C700CABB58 /* AppDelegate.swift */; };
 		00AD2D63290EE5C700CABB58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */; };
-		00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D69290EE5C800CABB58 /* Assets.xcassets */; };
 		00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */; };
 		0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178E99129152BB5000190B0 /* SoundsModel.swift */; };
@@ -25,6 +24,7 @@
 		018E05682916FB2400CBBD3D /* AuditoryVoting.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E05672916FB2400CBBD3D /* AuditoryVoting.mp3 */; };
 		018E056A2917084500CBBD3D /* Calldel.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E05692917084500CBBD3D /* Calldel.mp3 */; };
 		018E056C2917134900CBBD3D /* Call.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 018E056B2917134900CBBD3D /* Call.mp3 */; };
+		018E056D29171F6D00CBBD3D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		5ABE6AFB291690CF00713CAC /* PickAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5ABE6AFA291690CF00713CAC /* PickAnswer.mp3 */; };
 		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
 		D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65D291037AB005CD7E2 /* WinningCell.swift */; };
@@ -234,9 +234,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
+				018E056D29171F6D00CBBD3D /* StartViewController.swift in Sources */,
 				0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */,
-				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
 				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
 				0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */,
 				0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */,
