@@ -16,6 +16,12 @@
 		00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D69290EE5C800CABB58 /* Assets.xcassets */; };
 		00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */; };
+		0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178E99129152BB5000190B0 /* SoundsModel.swift */; };
+		0178E996291664E7000190B0 /* PickAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E995291664E7000190B0 /* PickAnswer.mp3 */; };
+		0178E9982916696F000190B0 /* TrueAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E9972916696F000190B0 /* TrueAnswer.mp3 */; };
+		0178E99A291669D2000190B0 /* FalseAnswer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E999291669D2000190B0 /* FalseAnswer.mp3 */; };
+		0178E99C29166A2E000190B0 /* WaitResults.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E99B29166A2E000190B0 /* WaitResults.mp3 */; };
+		0178E99E29166A66000190B0 /* Win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0178E99D29166A66000190B0 /* Win.mp3 */; };
 		D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65B291035ED005CD7E2 /* WinningViewController.swift */; };
 		D955E65E291037AB005CD7E2 /* WinningCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E65D291037AB005CD7E2 /* WinningCell.swift */; };
 		D955E66429103CC0005CD7E2 /* PrizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D955E66329103CC0005CD7E2 /* PrizeModel.swift */; };
@@ -33,6 +39,12 @@
 		00AD2D69290EE5C800CABB58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00AD2D6C290EE5C800CABB58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00AD2D6E290EE5C800CABB58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0178E99129152BB5000190B0 /* SoundsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsModel.swift; sourceTree = "<group>"; };
+		0178E995291664E7000190B0 /* PickAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = PickAnswer.mp3; path = ../../../../../Downloads/PickAnswer.mp3; sourceTree = "<group>"; };
+		0178E9972916696F000190B0 /* TrueAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TrueAnswer.mp3; sourceTree = "<group>"; };
+		0178E999291669D2000190B0 /* FalseAnswer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FalseAnswer.mp3; sourceTree = "<group>"; };
+		0178E99B29166A2E000190B0 /* WaitResults.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WaitResults.mp3; sourceTree = "<group>"; };
+		0178E99D29166A66000190B0 /* Win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Win.mp3; sourceTree = "<group>"; };
 		D955E65B291035ED005CD7E2 /* WinningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningViewController.swift; sourceTree = "<group>"; };
 		D955E65D291037AB005CD7E2 /* WinningCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinningCell.swift; sourceTree = "<group>"; };
 		D955E66329103CC0005CD7E2 /* PrizeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrizeModel.swift; sourceTree = "<group>"; };
@@ -52,6 +64,11 @@
 		0056D5B82911500A00610B9A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0178E995291664E7000190B0 /* PickAnswer.mp3 */,
+				0178E9972916696F000190B0 /* TrueAnswer.mp3 */,
+				0178E999291669D2000190B0 /* FalseAnswer.mp3 */,
+				0178E99B29166A2E000190B0 /* WaitResults.mp3 */,
+				0178E99D29166A66000190B0 /* Win.mp3 */,
 				00AD2D69290EE5C800CABB58 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -121,6 +138,7 @@
 				D955E66329103CC0005CD7E2 /* PrizeModel.swift */,
 				0056D5AF291148EF00610B9A /* QuestionModel.swift */,
 				0056D5B12911491800610B9A /* QuestionManager.swift */,
+				0178E99129152BB5000190B0 /* SoundsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,7 +201,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0178E9982916696F000190B0 /* TrueAnswer.mp3 in Resources */,
 				00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */,
+				0178E99A291669D2000190B0 /* FalseAnswer.mp3 in Resources */,
+				0178E996291664E7000190B0 /* PickAnswer.mp3 in Resources */,
+				0178E99E29166A66000190B0 /* Win.mp3 in Resources */,
+				0178E99C29166A2E000190B0 /* WaitResults.mp3 in Resources */,
 				00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +221,7 @@
 				0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */,
 				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
 				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
+				0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */,
 				0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */,
 				0056D5B22911491800610B9A /* QuestionManager.swift in Sources */,
 				0056D5B429114D9A00610B9A /* RulesViewController.swift in Sources */,
