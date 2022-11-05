@@ -30,7 +30,7 @@ extension RulesViewController {
         titleLabel.font = UIFont.systemFont(ofSize: 25)
         
         textView.text = """
-    "Игра Кто хочет стать миллионером? - это конкурс викторина, в котором участники должны правильно ответить на ряд вопросов с несколькими вариантами ответов, чтобы перейти на следующий уровень. Всего 15 вопросов, каждый вопрос стоит определенной суммы денег, участники не имеют никаких временных ограничений для предоставления ответа. Участники также получают три вида подсказок, чтобы помочь себе, если они застряли на конкретном вопросе.
+    Игра Кто хочет стать миллионером? - это конкурс викторина, в котором участники должны правильно ответить на ряд вопросов с несколькими вариантами ответов, чтобы перейти на следующий уровень. Всего 15 вопросов, каждый вопрос стоит определенной суммы денег, участники не имеют никаких временных ограничений для предоставления ответа. Участники также получают три вида подсказок, чтобы помочь себе, если они застряли на конкретном вопросе.
         
     Вопросы “Кто хочет стать миллионером?” структурированы в соответствии с пятью различными уровнями, причем уровень сложности постепенно увеличивается. Каждый уровень содержит три вопроса.
 
@@ -74,11 +74,11 @@ extension RulesViewController {
         
         textView.textColor = .white
         textView.backgroundColor = .clear
-
+        textView.isEditable = false
+        
         backButton.setTitle("Назад", for: .normal)
         backButton.layer.cornerRadius = 5
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
     }
     
     private func layout() {
@@ -100,12 +100,12 @@ extension RulesViewController {
             textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             view.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: 10),
             textView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10),
-
+            
             view.bottomAnchor.constraint(equalToSystemSpacingBelow: backButton.bottomAnchor, multiplier: 10),
             backButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 7),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: backButton.trailingAnchor, multiplier: 7),
             backButton.heightAnchor.constraint(equalToConstant: 50)
-            ])
+        ])
     }
 }
 
@@ -114,4 +114,3 @@ extension RulesViewController {
         dismiss(animated: true)
     }
 }
-
