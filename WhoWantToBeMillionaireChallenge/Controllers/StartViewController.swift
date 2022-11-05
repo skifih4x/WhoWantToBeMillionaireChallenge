@@ -25,6 +25,7 @@ class StartViewController: UIViewController {
 extension StartViewController {
     private func style() {
         imageView.image = UIImage(named: "millionaire.png")
+        imageView.contentMode = .scaleAspectFit
         
         playButton.setTitle("Играть", for: .normal)
         playButton.backgroundColor = .systemCyan
@@ -35,10 +36,9 @@ extension StartViewController {
         rulesButton.backgroundColor = .systemCyan
         rulesButton.layer.cornerRadius = 10
         rulesButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        
+
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
         rulesButton.addTarget(self, action:  #selector(rulesButtonTapped), for: .touchUpInside)
-        
     }
     
     private func layout() {
@@ -54,8 +54,6 @@ extension StartViewController {
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 280),
-            imageView.widthAnchor.constraint(equalToConstant: 300),
             stackView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 20),
             stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 7),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 7),
@@ -78,5 +76,3 @@ extension StartViewController {
         present(vc, animated: true)
     }
 }
-
-
