@@ -6,6 +6,7 @@
 //
 
 import UIKit
+var playSound = SoundsModel()
 
 struct QuestionMain {
     typealias typeQuestion = (answer: String, isCorrect: Bool)
@@ -82,7 +83,7 @@ class GameViewContoller: UIViewController {
         setup()
         applyStyle()
         applyLayout()
-        
+        playSound.sound(.pickAnswer)
         askQuestion()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
@@ -301,16 +302,19 @@ extension GameViewContoller {
     
     @objc func aButtonTapped(sender: UIButton) {
         print("Нажата кнопка с ответом ...")
-        
+        playSound.sound(.waitResults)
         timer.invalidate()
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
             guard let strongSelf = self else { return }
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
             if sender === correctButton {
                 print("И это правильный ответ!")
+                playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
+                playSound.sound(.falseAnswer)
+
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen

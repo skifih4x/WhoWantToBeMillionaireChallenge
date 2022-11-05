@@ -68,6 +68,8 @@ extension StartViewController {
 extension StartViewController {
     @objc func playButtonTapped(sender: UIButton) {
         print("Начали играть!")
+        let vc = GameViewContoller()
+        present(vc, animated: true)
     }
     
     @objc func rulesButtonTapped(sender: UIButton) {
