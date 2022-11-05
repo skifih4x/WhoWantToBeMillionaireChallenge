@@ -6,26 +6,21 @@
 //
 
 import UIKit
-var playSound = SoundsModel()
-
-struct QuestionMain {
-    typealias typeQuestion = (answer: String, isCorrect: Bool)
-    let text: String
-    let answers: [typeQuestion]
-    let level: Int
-    
-    init(q: String, a: [typeQuestion], l: Int) {
-        text = q
-        answers = a
-        level = l
-    }
-}
 
 struct QuestionViewModel {
     let question: String
     let answersButtonsText: [String : String]
     let correctAnswerButton: UIButton?
     let correctAnswerLetter: String?
+    var remainAnswerButton: UIButton? = nil
+    var remainAnswerLetter: String? = nil
+    
+    init(q: String, answers: [String : String], cButton: UIButton?, cLetter: String?) {
+        question = q
+        answersButtonsText = answers
+        correctAnswerButton = cButton
+        correctAnswerLetter = cLetter
+    }
 }
 
 class GameViewContoller: UIViewController {
@@ -67,7 +62,9 @@ class GameViewContoller: UIViewController {
             guard let questionViewModel = questionViewModel else {
                 return
             }
+            prepareRound()
             show(viewModel: questionViewModel)
+            startTimer()
         }
     }
     private var questionViewModel: QuestionViewModel?
@@ -76,25 +73,32 @@ class GameViewContoller: UIViewController {
     private var secondsPassed = 0
     private var timer = Timer()
     
+    private var playSound = SoundsModel()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = true
+        
         setup()
         applyStyle()
         applyLayout()
-        playSound.sound(.pickAnswer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         askQuestion()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer.invalidate()
     }
 }
 
 // MARK: - State's methods
 extension GameViewContoller {
-    private func askQuestion() {
-        currentQuestion = getMockQuestion()
-    }
-    
     private func convert(model: QuestionMain) -> QuestionViewModel {
         let answers = model.answers.shuffled()
         var dir = [String : String]()
@@ -116,7 +120,7 @@ extension GameViewContoller {
         default: correctButton = nil
         }
         
-        return QuestionViewModel(question: model.text, answersButtonsText: dir, correctAnswerButton: correctButton, correctAnswerLetter: correctChar)
+        return QuestionViewModel(q: model.text, answers: dir, cButton: correctButton, cLetter: correctChar)
     }
     
     private func show(viewModel: QuestionViewModel) {
@@ -125,6 +129,26 @@ extension GameViewContoller {
         bButton.setTitle(viewModel.answersButtonsText["B"], for: .normal)
         cButton.setTitle(viewModel.answersButtonsText["C"], for: .normal)
         dButton.setTitle(viewModel.answersButtonsText["D"], for: .normal)
+    }
+    
+    private func askQuestion() {
+        currentQuestion = getMockQuestion()
+    }
+    
+    private func prepareRound() {
+        [aButton, bButton, cButton, dButton].forEach { item in
+            item.configuration?.background.backgroundColor = .systemFill
+            item.isHidden = false
+            item.isEnabled = true
+        }
+        
+        statusProgressView.progress = 0.0
+    }
+    
+    private func startTimer() {
+        playSound.sound(.pickAnswer)
+        secondsPassed = 0
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
 }
 
@@ -297,6 +321,11 @@ extension GameViewContoller {
             statusProgressView.progress = percentProgress
         } else {
             timer.invalidate()
+            // TODO: - что надо делать по окончанию таймера?
+            let vc = WinningViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -310,14 +339,19 @@ extension GameViewContoller {
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
             if sender === correctButton {
                 print("И это правильный ответ!")
-                playSound.sound(.trueAnswer)
+                strongSelf.playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
-                playSound.sound(.falseAnswer)
+                strongSelf.playSound.sound(.falseAnswer)
 
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen
+            
+            let vc = WinningViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak strongSelf] in
+                strongSelf?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -338,7 +372,28 @@ extension GameViewContoller {
             .filter { $0 != correctButton }
             .randomElement()
         guard let remainButton = remainButton else { return }
-        [correctButton, remainButton].forEach { $0.isEnabled = true }
+        
+        let remainLetter: String?
+        switch remainButton {
+        case aButton: remainLetter = "A"
+        case bButton: remainLetter = "B"
+        case cButton: remainLetter = "C"
+        case dButton: remainLetter = "D"
+        default: remainLetter = nil
+        }
+        
+        questionViewModel?.remainAnswerButton = remainButton
+        questionViewModel?.remainAnswerLetter = remainLetter
+        
+        // MARK: TODO - выбрать вариант с показом
+        //[correctButton, remainButton].forEach { $0.isEnabled = true }
+        [aButton, bButton, cButton, dButton].forEach { item in
+            if [remainButton, correctButton].contains(item) {
+                item.isEnabled = true
+            } else {
+                item.isHidden = true
+            }
+        }
     }
     
     @objc func helpButtonTapped(sender: UIButton) {
@@ -353,50 +408,88 @@ extension GameViewContoller {
     }
     
     private func showHelp() {
-        guard let correctLetter = questionViewModel?.correctAnswerLetter else { return }
+        guard let correctLetter = questionViewModel?.correctAnswerLetter,
+            let correctButton = questionViewModel?.correctAnswerButton else {
+                return
+            }
         
-        // TODO: кнопок может быть 2 или 4
+        var letters: [String] = []
+        var buttons: [UIButton] = []
+        if let remainLetter = questionViewModel?.remainAnswerLetter,
+           let remainButton = questionViewModel?.remainAnswerButton {
+            letters = [correctLetter, remainLetter]
+            buttons = [correctButton, remainButton]
+        } else {
+            letters = ["A","B","C","D"]
+            buttons =  [aButton, bButton, cButton, dButton]
+        }
+        
         // TODO: можно добавить уровень вопроса - как вероятность правильного ответа
-        let distribution = getVotesDistribution(correctAnswer: correctLetter)
+        let distribution = getVotesDistribution(correctAnswer: correctLetter, remainAnswer: questionViewModel?.remainAnswerLetter)
         
-        let message = "Голоса распределились следующим образом:"
-        let alert = UIAlertController(title: "Помощь аудитории", message: message, preferredStyle: .actionSheet)
-        
-        let tapA = UIAlertAction(title: "A: " + distribution.a, style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.aButtonTapped(sender: strongSelf.aButton)
-        }
-        let tapB = UIAlertAction(title: "B: " + distribution.b, style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.aButtonTapped(sender: strongSelf.bButton)
-        }
-        let tapC = UIAlertAction(title: "C: " + distribution.c, style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.aButtonTapped(sender: strongSelf.cButton)
-        }
-        let tapD = UIAlertAction(title: "D: " + distribution.d, style: .default) { [weak self] _ in
-            guard let strongSelf = self else { return }
-            strongSelf.aButtonTapped(sender: strongSelf.dButton)
-        }
-        
-        alert.addAction(tapA)
-        alert.addAction(tapB)
-        alert.addAction(tapC)
-        alert.addAction(tapD)
-        
-        let cancel = UIAlertAction(title: "Отменить", style: .cancel)  { [weak self] _ in
-            guard let strongSelf = self else { return }
-            [strongSelf.aButton, strongSelf.bButton, strongSelf.cButton, strongSelf.dButton].forEach { $0.isEnabled = true }
-        }
-        
-        alert.addAction(cancel)
+        let alert = getAlert(for: buttons, and: letters, from: distribution)
             
         present(alert, animated: true)
     }
     
-    private func getVotesDistribution(correctAnswer: String) -> (a: String, b: String, c: String, d: String) {
+    private func getAlert(
+        for buttons: [UIButton],
+        and letters: [String],
+        from distribution: (a: String, b: String, c: String, d: String)
+    ) -> UIAlertController {
+        
+        let message = "Голоса распределились следующим образом:"
+        let alert = UIAlertController(title: "Помощь аудитории", message: message, preferredStyle: .actionSheet)
+        
+        if letters.contains("A") {
+            let tapA = UIAlertAction(title: "A: " + distribution.a, style: .default) { [weak self] _ in
+                guard let strongSelf = self else { return }
+                strongSelf.aButtonTapped(sender: strongSelf.aButton)
+            }
+            alert.addAction(tapA)
+        }
+        
+        if letters.contains("B") {
+            let tapB = UIAlertAction(title: "B: " + distribution.b, style: .default) { [weak self] _ in
+                guard let strongSelf = self else { return }
+                strongSelf.aButtonTapped(sender: strongSelf.bButton)
+            }
+            alert.addAction(tapB)
+        }
+        
+        if letters.contains("C") {
+            let tapC = UIAlertAction(title: "C: " + distribution.c, style: .default) { [weak self] _ in
+                guard let strongSelf = self else { return }
+                strongSelf.aButtonTapped(sender: strongSelf.cButton)
+            }
+            alert.addAction(tapC)
+        }
+        
+        if letters.contains("D") {
+            let tapD = UIAlertAction(title: "D: " + distribution.d, style: .default) { [weak self] _ in
+                guard let strongSelf = self else { return }
+                strongSelf.aButtonTapped(sender: strongSelf.dButton)
+            }
+            alert.addAction(tapD)
+        }
+        
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)  { _ in
+            buttons.forEach { $0.isEnabled = true }
+        }
+        
+        alert.addAction(cancel)
+        
+        return alert
+    }
+    
+    private func getVotesDistribution(correctAnswer: String, remainAnswer: String? = nil) -> (a: String, b: String, c: String, d: String) {
         var dir: [String : Int] = [:]
-        let arr = ["A", "B", "C", "D"] + Array(repeating: correctAnswer, count: 6)
+        var arr: [String] = []
+        if let remainAnswer = remainAnswer {
+            arr = Array(repeating: remainAnswer, count: 3) + Array(repeating: correctAnswer, count: 7)
+        } else {
+            arr = ["A", "B", "C", "D"] + Array(repeating: correctAnswer, count: 6)
+        }
         for _ in 1...10 {
             dir[arr.randomElement()!, default: 0] += 1
         }
