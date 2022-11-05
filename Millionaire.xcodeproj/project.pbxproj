@@ -11,9 +11,9 @@
 		0056D5B22911491800610B9A /* QuestionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B12911491800610B9A /* QuestionManager.swift */; };
 		0056D5B429114D9A00610B9A /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B329114D9A00610B9A /* RulesViewController.swift */; };
 		0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0056D5B529114DA500610B9A /* GameViewContoller.swift */; };
+		008BACC52916D69400729D5E /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		00AD2D61290EE5C700CABB58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D60290EE5C700CABB58 /* AppDelegate.swift */; };
 		00AD2D63290EE5C700CABB58 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */; };
-		00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AD2D64290EE5C700CABB58 /* StartViewController.swift */; };
 		00AD2D6A290EE5C800CABB58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D69290EE5C800CABB58 /* Assets.xcassets */; };
 		00AD2D6D290EE5C800CABB58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00AD2D6B290EE5C800CABB58 /* LaunchScreen.storyboard */; };
 		0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0178E99129152BB5000190B0 /* SoundsModel.swift */; };
@@ -32,7 +32,7 @@
 		0056D5B12911491800610B9A /* QuestionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionManager.swift; sourceTree = "<group>"; };
 		0056D5B329114D9A00610B9A /* RulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
 		0056D5B529114DA500610B9A /* GameViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewContoller.swift; sourceTree = "<group>"; };
-		00AD2D5D290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhoWantToBeMillionaireChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		00AD2D5D290EE5C700CABB58 /* Millionaire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Millionaire.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00AD2D60290EE5C700CABB58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00AD2D62290EE5C700CABB58 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		00AD2D64290EE5C700CABB58 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		00AD2D5E290EE5C700CABB58 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				00AD2D5D290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge.app */,
+				00AD2D5D290EE5C700CABB58 /* Millionaire.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,9 +146,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00AD2D5C290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge */ = {
+		00AD2D5C290EE5C700CABB58 /* Millionaire */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00AD2D71290EE5C800CABB58 /* Build configuration list for PBXNativeTarget "WhoWantToBeMillionaireChallenge" */;
+			buildConfigurationList = 00AD2D71290EE5C800CABB58 /* Build configuration list for PBXNativeTarget "Millionaire" */;
 			buildPhases = (
 				00AD2D59290EE5C700CABB58 /* Sources */,
 				00AD2D5A290EE5C700CABB58 /* Frameworks */,
@@ -158,9 +158,9 @@
 			);
 			dependencies = (
 			);
-			name = WhoWantToBeMillionaireChallenge;
+			name = Millionaire;
 			productName = WhoWantToBeMillionaireChallenge;
-			productReference = 00AD2D5D290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge.app */;
+			productReference = 00AD2D5D290EE5C700CABB58 /* Millionaire.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -178,7 +178,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 00AD2D58290EE5C700CABB58 /* Build configuration list for PBXProject "WhoWantToBeMillionaireChallenge" */;
+			buildConfigurationList = 00AD2D58290EE5C700CABB58 /* Build configuration list for PBXProject "Millionaire" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -191,7 +191,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				00AD2D5C290EE5C700CABB58 /* WhoWantToBeMillionaireChallenge */,
+				00AD2D5C290EE5C700CABB58 /* Millionaire */,
 			);
 		};
 /* End PBXProject section */
@@ -218,9 +218,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
+				008BACC52916D69400729D5E /* StartViewController.swift in Sources */,
 				0056D5B0291148EF00610B9A /* QuestionModel.swift in Sources */,
-				00AD2D65290EE5C700CABB58 /* StartViewController.swift in Sources */,
 				D955E65C291035ED005CD7E2 /* WinningViewController.swift in Sources */,
 				0178E99229152BB5000190B0 /* SoundsModel.swift in Sources */,
 				0056D5B629114DA500610B9A /* GameViewContoller.swift in Sources */,
@@ -368,7 +367,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76N9URDUCT;
+				DEVELOPMENT_TEAM = W9FSXFWG34;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -397,7 +396,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 76N9URDUCT;
+				DEVELOPMENT_TEAM = W9FSXFWG34;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WhoWantToBeMillionaireChallenge/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -422,7 +421,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00AD2D58290EE5C700CABB58 /* Build configuration list for PBXProject "WhoWantToBeMillionaireChallenge" */ = {
+		00AD2D58290EE5C700CABB58 /* Build configuration list for PBXProject "Millionaire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00AD2D6F290EE5C800CABB58 /* Debug */,
@@ -431,7 +430,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		00AD2D71290EE5C800CABB58 /* Build configuration list for PBXNativeTarget "WhoWantToBeMillionaireChallenge" */ = {
+		00AD2D71290EE5C800CABB58 /* Build configuration list for PBXNativeTarget "Millionaire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00AD2D72290EE5C800CABB58 /* Debug */,
