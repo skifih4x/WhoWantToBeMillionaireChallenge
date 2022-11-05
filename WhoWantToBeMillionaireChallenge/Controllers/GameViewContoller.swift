@@ -359,11 +359,15 @@ extension GameViewContoller {
         print("Делаем 50/50 ...")
         
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        let hintButtons = [fiftyButton, helpButton, mistakeButton].filter { $0.isEnabled == true }
+        hintButtons.forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.removeTwoButtons()
+            guard let strongSelf = self else { return }
+            strongSelf.removeTwoButtons()
+            strongSelf.playSound.sound(.fifty)
+            hintButtons.forEach { $0.isEnabled = true }
+            sender.isEnabled = false
         }
-        
-        sender.isEnabled = false
     }
     
     private func removeTwoButtons() {
@@ -398,13 +402,15 @@ extension GameViewContoller {
     
     @objc func helpButtonTapped(sender: UIButton) {
         print("Делаем Помощь зала ...")
-        
+        playSound.sound(.voting)
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        let hintButtons = [fiftyButton, helpButton, mistakeButton].filter { $0.isEnabled == true }
+        hintButtons.forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             self?.showHelp()
+            hintButtons.forEach { $0.isEnabled = true }
+            sender.isEnabled = false
         }
-        
-        sender.isEnabled = false
     }
     
     private func showHelp() {
@@ -473,8 +479,9 @@ extension GameViewContoller {
             alert.addAction(tapD)
         }
         
-        let cancel = UIAlertAction(title: "Отменить", style: .cancel)  { _ in
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)  { [weak self] _ in
             buttons.forEach { $0.isEnabled = true }
+            self?.playSound.stopHelpSound()
         }
         
         alert.addAction(cancel)
@@ -503,13 +510,15 @@ extension GameViewContoller {
     
     @objc func mistakeButtonTapped(sender: UIButton) {
         print("Делаем звонок умному другу ...")
-        
+        playSound.sound(.call)
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        let hintButtons = [fiftyButton, helpButton, mistakeButton].filter { $0.isEnabled == true }
+        hintButtons.forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             self?.showCorrectAnswer()
+            hintButtons.forEach { $0.isEnabled = true }
+            sender.isEnabled = false
         }
-        
-        sender.isEnabled = false
     }
     
     private func showCorrectAnswer() {
