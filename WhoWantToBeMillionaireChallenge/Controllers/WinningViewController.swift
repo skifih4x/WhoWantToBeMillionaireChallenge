@@ -58,6 +58,7 @@ final class WinningViewController: UIViewController {
 
     @objc func continueTapped() {
         // Переход на экран Сергея
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -80,7 +81,7 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
                                           message: "Вы выиграли \(WinModel.winModels[indexPath.row].prize.rawValue)",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] action in
-                self?.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popToRootViewController(animated: true)
             }))
             self?.present(alert, animated: true)
         }

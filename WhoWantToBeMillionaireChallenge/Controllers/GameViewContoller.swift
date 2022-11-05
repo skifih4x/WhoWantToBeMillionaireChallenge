@@ -80,12 +80,21 @@ class GameViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = true
+        
         setup()
         applyStyle()
         applyLayout()
-        playSound.sound(.pickAnswer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         askQuestion()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer.invalidate()
     }
 }
 
@@ -297,6 +306,11 @@ extension GameViewContoller {
             statusProgressView.progress = percentProgress
         } else {
             timer.invalidate()
+            // TODO: - что надо делать по окончанию таймера?
+            let vc = WinningViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
@@ -318,6 +332,11 @@ extension GameViewContoller {
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen
+            
+            let vc = WinningViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak strongSelf] in
+                strongSelf?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     
