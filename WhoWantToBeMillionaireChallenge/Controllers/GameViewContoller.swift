@@ -205,7 +205,7 @@ extension GameViewContoller {
         arrangeStackView(
             for: mainStackView,
                subviews: [hintButtonsStackView, questionLabelView, statusProgressView, answerButtonsStackView],
-               spacing: 10.0,
+               spacing: 20.0,
                axis: .vertical
         )
         
@@ -223,7 +223,7 @@ extension GameViewContoller {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             
             helpButton.heightAnchor.constraint(equalTo: helpButton.widthAnchor, multiplier: 2/3),
             fiftyButton.heightAnchor.constraint(equalTo: fiftyButton.widthAnchor, multiplier: 2/3),
