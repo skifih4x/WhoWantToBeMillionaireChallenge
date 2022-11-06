@@ -17,7 +17,7 @@ final class WinningViewController: UIViewController {
         imageViewBackground.translatesAutoresizingMaskIntoConstraints = false
         return imageViewBackground
     }()
-
+    
     private lazy var prizeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(WinningCell.self, forCellReuseIdentifier: WinningCell.identifier)
@@ -28,25 +28,27 @@ final class WinningViewController: UIViewController {
         return tableView
     }()
     
+    private let serviceButtonsStackView = UIStackView()
+    
     private lazy var continueButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .systemMint
+        let button = UIButton()
+        button.backgroundColor = .systemBlue
         button.setTitle("ПРОДОЛЖИТЬ", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(continueTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private lazy var takePrizeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = .systemMint
-        button.setTitle("ЗАБРАТЬ", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        button.layer.cornerRadius = 10
+        let button = UIButton()
         button.addTarget(self, action: #selector(takePrizeTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.setTitle("", for: .normal)
+        let image = UIImage(named: "money")
+        button.setImage(image, for: .normal)
+        button.contentMode = .scaleAspectFit
+        
         return button
     }()
 
@@ -64,33 +66,36 @@ final class WinningViewController: UIViewController {
     private func setupHierarchy() {
         view.addSubview(backgroundView)
         view.addSubview(prizeTableView)
-        view.addSubview(continueButton)
-        view.addSubview(takePrizeButton)
+        serviceButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        serviceButtonsStackView.spacing = 20
+        [continueButton, takePrizeButton].forEach { item in
+            item.translatesAutoresizingMaskIntoConstraints = false
+            serviceButtonsStackView.addArrangedSubview(item)
+        }
+        takePrizeButton.setContentHuggingPriority(.required, for: .horizontal)
+        view.addSubview(serviceButtonsStackView)
     }
-
+    
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            prizeTableView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -10),
+            prizeTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             prizeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             prizeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-
-            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            continueButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-            continueButton.heightAnchor.constraint(equalToConstant: 60),
-            continueButton.widthAnchor.constraint(equalToConstant: 175),
-
-            takePrizeButton.centerYAnchor.constraint(equalTo: continueButton.centerYAnchor),
-            takePrizeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            takePrizeButton.heightAnchor.constraint(equalToConstant: 60),
-            takePrizeButton.widthAnchor.constraint(equalToConstant: 175)
+            
+            serviceButtonsStackView.topAnchor.constraint(equalTo: prizeTableView.bottomAnchor, constant: 20),
+            serviceButtonsStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            serviceButtonsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            serviceButtonsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            serviceButtonsStackView.heightAnchor.constraint(equalToConstant: 60),
+            takePrizeButton.heightAnchor.constraint(equalTo: takePrizeButton.widthAnchor, multiplier: 1),
         ])
     }
-
+    
     @objc func continueTapped() {
         navigationController?.popViewController(animated: true)
     }
-
+    
     @objc func takePrizeTapped() {
         let alert = UIAlertController(title: "Поздравляем!",
                                       message: "Вы выиграли \(WinModel.winModels[level!].prize.rawValue)",
@@ -99,28 +104,23 @@ final class WinningViewController: UIViewController {
             self?.navigationController?.popToRootViewController(animated: true)
         }))
         present(alert, animated: true)
-        }
+    }
 }
 
 extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         WinModel.winModels.count
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         44
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
         cell?.backgroundColor = .clear
         cell?.configure(model: WinModel.winModels[indexPath.row])
         return cell ?? UITableViewCell()
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let indexPath = IndexPath(row: 13, section: 0)
-//        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
     }
 }
