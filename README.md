@@ -1,4 +1,4 @@
-# WhoWantToBeMillionaireChallenge
+# WhoWantToBeMillionaireChallenge 
 
 ## Приложение написанно без storyboard, верстка только кодом с использованием MVC
 
@@ -21,3 +21,5 @@
 - https://github.com/skifih4x
 - https://github.com/MGronse
 - https://github.com/Ingvar1998
+
+ Челлендж группы от https://t.me/swiftmarathon
