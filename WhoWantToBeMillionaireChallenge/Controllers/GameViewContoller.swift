@@ -7,22 +7,6 @@
 
 import UIKit
 
-struct QuestionViewModel {
-    let question: String
-    let answersButtonsText: [String : String]
-    let correctAnswerButton: UIButton?
-    let correctAnswerLetter: String?
-    var remainAnswerButton: UIButton? = nil
-    var remainAnswerLetter: String? = nil
-    
-    init(q: String, answers: [String : String], cButton: UIButton?, cLetter: String?) {
-        question = q
-        answersButtonsText = answers
-        correctAnswerButton = cButton
-        correctAnswerLetter = cLetter
-    }
-}
-
 class GameViewContoller: UIViewController {
     
     private let backgroundImageView: UIImageView = {
@@ -53,22 +37,18 @@ class GameViewContoller: UIViewController {
     private let statusProgressView = UIProgressView()
     
     // MARK: - Properties
-    private var currentQuestion: QuestionMain? {
-        didSet {
-            guard let currentQuestion = currentQuestion else {
-                return
-            }
-            questionViewModel = convert(model: currentQuestion)
-            guard let questionViewModel = questionViewModel else {
-                return
-            }
-            prepareRound()
-            show(viewModel: questionViewModel)
-            startTimer()
-        }
-    }
+    var questionFactory: QuestionFactoryProtocol?
+    private var currentQuestion: Question?
     private var questionViewModel: QuestionViewModel?
     
+    private let questionsAmount: Int = 15
+    private var currentLevel = 0 {
+        didSet {
+            questionFactory?.requestNextQuestion(level: currentLevel)
+        }
+    }
+    
+    //MARK: - Timer
     private let totalTime = 30
     private var secondsPassed = 0
     private var timer = Timer()
@@ -88,7 +68,11 @@ class GameViewContoller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        askQuestion()
+        if currentLevel == questionsAmount {
+            navigationController?.popViewController(animated: true)
+        } else {
+            currentLevel += 1
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,7 +83,7 @@ class GameViewContoller: UIViewController {
 
 // MARK: - State's methods
 extension GameViewContoller {
-    private func convert(model: QuestionMain) -> QuestionViewModel {
+    private func convert(model: Question) -> QuestionViewModel {
         let answers = model.answers.shuffled()
         var dir = [String : String]()
         var correctChar: String?
@@ -129,10 +113,6 @@ extension GameViewContoller {
         bButton.setTitle(viewModel.answersButtonsText["B"], for: .normal)
         cButton.setTitle(viewModel.answersButtonsText["C"], for: .normal)
         dButton.setTitle(viewModel.answersButtonsText["D"], for: .normal)
-    }
-    
-    private func askQuestion() {
-        currentQuestion = getMockQuestion()
     }
     
     private func prepareRound() {
@@ -239,7 +219,6 @@ extension GameViewContoller {
             aButton.heightAnchor.constraint(equalToConstant: 40),
             
             statusProgressView.heightAnchor.constraint(equalToConstant: 5)
-            
         ])
     }
     
@@ -532,18 +511,15 @@ extension GameViewContoller {
     }
 }
 
-// MARK: - Mock data
-extension GameViewContoller {
-    private func getMockQuestion() -> QuestionMain {
-        let question = QuestionMain(
-            q: "Способностью к быстрой смене ... славятся хамелеоны?",
-            a: [
-                (answer: "Цвета", isCorrect: true),
-                (answer: "Размера", isCorrect: false),
-                (answer: "Пола", isCorrect: false),
-                (answer: "Убеждений", isCorrect: false)
-            ],
-            l: 1)
-        return question
+// MARK: - QuestionFactoryDelegate
+extension GameViewContoller: QuestionFactoryDelegate {
+    func didRecieveNextQuestion(_ questionFactory: QuestionFactoryProtocol, question: Question?) {
+        guard let question = question else { return }
+        currentQuestion = question
+        questionViewModel = convert(model: question)
+        guard let questionViewModel = questionViewModel else { return }
+        prepareRound()
+        show(viewModel: questionViewModel)
+        startTimer()
     }
 }
