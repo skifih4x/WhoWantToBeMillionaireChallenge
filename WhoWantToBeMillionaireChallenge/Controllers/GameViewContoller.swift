@@ -59,8 +59,6 @@ class GameViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
-        
         setup()
         applyStyle()
         applyLayout()
@@ -135,6 +133,8 @@ extension GameViewContoller {
 // MARK: - Private methods setup and UI
 extension GameViewContoller {
     private func setup() {
+        navigationController?.isNavigationBarHidden = true
+        
         aButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
         bButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
         cButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
@@ -143,8 +143,6 @@ extension GameViewContoller {
         fiftyButton.addTarget(self, action: #selector(fiftyButtonTapped), for: .primaryActionTriggered)
         helpButton.addTarget(self, action: #selector(helpButtonTapped), for: .primaryActionTriggered)
         mistakeButton.addTarget(self, action: #selector(mistakeButtonTapped), for: .primaryActionTriggered)
-        
-        statusProgressView.progress = 0.0
     }
     
     private func applyStyle() {
@@ -170,10 +168,10 @@ extension GameViewContoller {
             for: hintButtonsStackView,
                subviews: [leftPaddingView, fiftyButton, helpButton, mistakeButton, rightPaddingView]
         )
-                
+        
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         questionLabelView.addSubview(questionLabel)
-                
+        
         arrangeStackView(
             for: answerButtonsStackView,
                subviews: [aButton, bButton, cButton, dButton],
@@ -322,7 +320,7 @@ extension GameViewContoller {
             } else {
                 print("Вы ответили неправильно(")
                 strongSelf.playSound.sound(.falseAnswer)
-
+                
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen
@@ -368,8 +366,6 @@ extension GameViewContoller {
         questionViewModel?.remainAnswerButton = remainButton
         questionViewModel?.remainAnswerLetter = remainLetter
         
-        // MARK: TODO - выбрать вариант с показом
-        //[correctButton, remainButton].forEach { $0.isEnabled = true }
         [aButton, bButton, cButton, dButton].forEach { item in
             if [remainButton, correctButton].contains(item) {
                 item.isEnabled = true
@@ -394,9 +390,9 @@ extension GameViewContoller {
     
     private func showHelp() {
         guard let correctLetter = questionViewModel?.correctAnswerLetter,
-            let correctButton = questionViewModel?.correctAnswerButton else {
-                return
-            }
+              let correctButton = questionViewModel?.correctAnswerButton else {
+                  return
+              }
         
         var letters: [String] = []
         var buttons: [UIButton] = []
@@ -413,7 +409,7 @@ extension GameViewContoller {
         let distribution = getVotesDistribution(correctAnswer: correctLetter, remainAnswer: questionViewModel?.remainAnswerLetter)
         
         let alert = getAlert(for: buttons, and: letters, from: distribution)
-            
+        
         present(alert, animated: true)
     }
     
