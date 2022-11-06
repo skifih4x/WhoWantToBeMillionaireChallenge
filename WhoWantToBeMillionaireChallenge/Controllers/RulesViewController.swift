@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RulesViewController: UIViewController {
+final class RulesViewController: UIViewController {
     let titleLabel = UILabel()
     let backButton = UIButton()
     let textView = UITextView()
