@@ -311,6 +311,8 @@ extension GameViewContoller {
         playSound.sound(.waitResults)
         timer.invalidate()
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        let hintButtons = [fiftyButton, helpButton, mistakeButton].filter { $0.isEnabled == true }
+        hintButtons.forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
             guard let strongSelf = self else { return }
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
@@ -320,7 +322,6 @@ extension GameViewContoller {
                 strongSelf.playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
-                isCorrect = false
                 strongSelf.playSound.sound(.falseAnswer)
                 
                 sender.configuration?.background.backgroundColor = .systemRed
@@ -330,6 +331,7 @@ extension GameViewContoller {
             let playerAnswer = PlayerAnswer(level: strongSelf.currentLevel, result: isCorrect)
             let vc = WinningViewController(playerAnswer: playerAnswer)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak strongSelf] in
+                hintButtons.forEach { $0.isEnabled = true }
                 strongSelf?.navigationController?.pushViewController(vc, animated: true)
             }
         }
