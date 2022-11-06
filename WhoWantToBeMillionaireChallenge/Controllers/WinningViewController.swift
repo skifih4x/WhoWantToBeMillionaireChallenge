@@ -72,7 +72,7 @@ final class WinningViewController: UIViewController {
         setupHierarchy()
         setupLayout()
         
-        if playerAnswerViewModel?.level == 0 {
+        if playerAnswerViewModel?.level == 0 || playerAnswer?.result == nil {
             takePrizeTapped()
         }
     }
@@ -86,7 +86,7 @@ final class WinningViewController: UIViewController {
             return PlayerAnswerViewModel(title: title, level: level, money: money)
         } else {
             let money = WinModel.winModels[level].safeMoney
-            let title = "У вас все впереди! Вы забираете:"
+            let title = "У вас все впереди! Вы забираете: \(money) денег"
             return PlayerAnswerViewModel(title: title, level: level, money: money)
         }
     }
@@ -146,7 +146,7 @@ extension WinningViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WinningCell.identifier, for: indexPath) as? WinningCell
-        let isCurrentLevel = playerAnswerViewModel?.level == indexPath.row
+        let isCurrentLevel = playerAnswerViewModel?.level == indexPath.row && playerAnswer?.result != nil
         cell?.configure(model: WinModel.winModels[indexPath.row], isCurrentLevel: isCurrentLevel)
         return cell ?? UITableViewCell()
     }
