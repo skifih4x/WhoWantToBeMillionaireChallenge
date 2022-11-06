@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
     
     let imageView = UIImageView()
     let playButton = UIButton()
@@ -45,18 +45,25 @@ extension StartViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
         
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -40),
+        ])
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 20
-        stackView.addArrangedSubview(imageView)
+        stackView.distribution = .fillEqually
         stackView.addArrangedSubview(playButton)
         stackView.addArrangedSubview(rulesButton)
         view.addSubview(stackView)
-        
+
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 20),
-            stackView.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 7),
-            view.trailingAnchor.constraint(equalToSystemSpacingAfter: stackView.trailingAnchor, multiplier: 7),
+            stackView.topAnchor.constraint(lessThanOrEqualTo: imageView.bottomAnchor, constant: 20),
+            stackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+
             playButton.heightAnchor.constraint(equalToConstant: 50),
             rulesButton.heightAnchor.constraint(equalToConstant: 50)
         ])
@@ -67,6 +74,7 @@ extension StartViewController {
     @objc func playButtonTapped(sender: UIButton) {
         print("Начали играть!")
         let vc = GameViewContoller()
+        vc.questionFactory = QuestionFactory(delegate: vc)
         navigationController?.pushViewController(vc, animated: true)
     }
     

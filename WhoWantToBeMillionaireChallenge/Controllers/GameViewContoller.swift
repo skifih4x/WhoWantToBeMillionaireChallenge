@@ -7,23 +7,7 @@
 
 import UIKit
 
-struct QuestionViewModel {
-    let question: String
-    let answersButtonsText: [String : String]
-    let correctAnswerButton: UIButton?
-    let correctAnswerLetter: String?
-    var remainAnswerButton: UIButton? = nil
-    var remainAnswerLetter: String? = nil
-    
-    init(q: String, answers: [String : String], cButton: UIButton?, cLetter: String?) {
-        question = q
-        answersButtonsText = answers
-        correctAnswerButton = cButton
-        correctAnswerLetter = cLetter
-    }
-}
-
-class GameViewContoller: UIViewController {
+final class GameViewContoller: UIViewController {
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
@@ -53,22 +37,18 @@ class GameViewContoller: UIViewController {
     private let statusProgressView = UIProgressView()
     
     // MARK: - Properties
-    private var currentQuestion: QuestionMain? {
-        didSet {
-            guard let currentQuestion = currentQuestion else {
-                return
-            }
-            questionViewModel = convert(model: currentQuestion)
-            guard let questionViewModel = questionViewModel else {
-                return
-            }
-            prepareRound()
-            show(viewModel: questionViewModel)
-            startTimer()
-        }
-    }
+    var questionFactory: QuestionFactoryProtocol?
+    private var currentQuestion: Question?
     private var questionViewModel: QuestionViewModel?
     
+    private let questionsAmount: Int = 15
+    private var currentLevel = 0 {
+        didSet {
+            questionFactory?.requestNextQuestion(level: currentLevel)
+        }
+    }
+    
+    //MARK: - Timer
     private let totalTime = 30
     private var secondsPassed = 0
     private var timer = Timer()
@@ -79,8 +59,6 @@ class GameViewContoller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.isNavigationBarHidden = true
-        
         setup()
         applyStyle()
         applyLayout()
@@ -88,7 +66,11 @@ class GameViewContoller: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        askQuestion()
+        if currentLevel == questionsAmount {
+            navigationController?.popViewController(animated: true)
+        } else {
+            currentLevel += 1
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -99,7 +81,7 @@ class GameViewContoller: UIViewController {
 
 // MARK: - State's methods
 extension GameViewContoller {
-    private func convert(model: QuestionMain) -> QuestionViewModel {
+    private func convert(model: Question) -> QuestionViewModel {
         let answers = model.answers.shuffled()
         var dir = [String : String]()
         var correctChar: String?
@@ -131,10 +113,6 @@ extension GameViewContoller {
         dButton.setTitle(viewModel.answersButtonsText["D"], for: .normal)
     }
     
-    private func askQuestion() {
-        currentQuestion = getMockQuestion()
-    }
-    
     private func prepareRound() {
         [aButton, bButton, cButton, dButton].forEach { item in
             item.configuration?.background.backgroundColor = .systemFill
@@ -155,6 +133,8 @@ extension GameViewContoller {
 // MARK: - Private methods setup and UI
 extension GameViewContoller {
     private func setup() {
+        navigationController?.isNavigationBarHidden = true
+        
         aButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
         bButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
         cButton.addTarget(self, action: #selector(aButtonTapped), for: .primaryActionTriggered)
@@ -163,8 +143,6 @@ extension GameViewContoller {
         fiftyButton.addTarget(self, action: #selector(fiftyButtonTapped), for: .primaryActionTriggered)
         helpButton.addTarget(self, action: #selector(helpButtonTapped), for: .primaryActionTriggered)
         mistakeButton.addTarget(self, action: #selector(mistakeButtonTapped), for: .primaryActionTriggered)
-        
-        statusProgressView.progress = 0.0
     }
     
     private func applyStyle() {
@@ -190,10 +168,10 @@ extension GameViewContoller {
             for: hintButtonsStackView,
                subviews: [leftPaddingView, fiftyButton, helpButton, mistakeButton, rightPaddingView]
         )
-                
+        
         questionLabel.translatesAutoresizingMaskIntoConstraints = false
         questionLabelView.addSubview(questionLabel)
-                
+        
         arrangeStackView(
             for: answerButtonsStackView,
                subviews: [aButton, bButton, cButton, dButton],
@@ -205,7 +183,7 @@ extension GameViewContoller {
         arrangeStackView(
             for: mainStackView,
                subviews: [hintButtonsStackView, questionLabelView, statusProgressView, answerButtonsStackView],
-               spacing: 10.0,
+               spacing: 20.0,
                axis: .vertical
         )
         
@@ -223,7 +201,7 @@ extension GameViewContoller {
             mainStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
             
             helpButton.heightAnchor.constraint(equalTo: helpButton.widthAnchor, multiplier: 2/3),
             fiftyButton.heightAnchor.constraint(equalTo: fiftyButton.widthAnchor, multiplier: 2/3),
@@ -239,7 +217,6 @@ extension GameViewContoller {
             aButton.heightAnchor.constraint(equalToConstant: 40),
             
             statusProgressView.heightAnchor.constraint(equalToConstant: 5)
-            
         ])
     }
     
@@ -322,7 +299,7 @@ extension GameViewContoller {
         } else {
             timer.invalidate()
             // TODO: - что надо делать по окончанию таймера?
-            let vc = WinningViewController()
+            let vc = WinningViewController(playerAnswer: PlayerAnswer(level: currentLevel, result: nil))
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -330,26 +307,31 @@ extension GameViewContoller {
     }
     
     @objc func aButtonTapped(sender: UIButton) {
-        print("Нажата кнопка с ответом ...")
+        var isCorrect: Bool?
         playSound.sound(.waitResults)
         timer.invalidate()
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
+        let hintButtons = [fiftyButton, helpButton, mistakeButton].filter { $0.isEnabled == true }
+        hintButtons.forEach { $0.isEnabled = false }
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
             guard let strongSelf = self else { return }
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
             if sender === correctButton {
                 print("И это правильный ответ!")
+                isCorrect = true
                 strongSelf.playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
                 strongSelf.playSound.sound(.falseAnswer)
-
+                
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen
             
-            let vc = WinningViewController()
+            let playerAnswer = PlayerAnswer(level: strongSelf.currentLevel, result: isCorrect)
+            let vc = WinningViewController(playerAnswer: playerAnswer)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak strongSelf] in
+                hintButtons.forEach { $0.isEnabled = true }
                 strongSelf?.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -389,8 +371,6 @@ extension GameViewContoller {
         questionViewModel?.remainAnswerButton = remainButton
         questionViewModel?.remainAnswerLetter = remainLetter
         
-        // MARK: TODO - выбрать вариант с показом
-        //[correctButton, remainButton].forEach { $0.isEnabled = true }
         [aButton, bButton, cButton, dButton].forEach { item in
             if [remainButton, correctButton].contains(item) {
                 item.isEnabled = true
@@ -415,9 +395,9 @@ extension GameViewContoller {
     
     private func showHelp() {
         guard let correctLetter = questionViewModel?.correctAnswerLetter,
-            let correctButton = questionViewModel?.correctAnswerButton else {
-                return
-            }
+              let correctButton = questionViewModel?.correctAnswerButton else {
+                  return
+              }
         
         var letters: [String] = []
         var buttons: [UIButton] = []
@@ -434,7 +414,7 @@ extension GameViewContoller {
         let distribution = getVotesDistribution(correctAnswer: correctLetter, remainAnswer: questionViewModel?.remainAnswerLetter)
         
         let alert = getAlert(for: buttons, and: letters, from: distribution)
-            
+        
         present(alert, animated: true)
     }
     
@@ -532,18 +512,15 @@ extension GameViewContoller {
     }
 }
 
-// MARK: - Mock data
-extension GameViewContoller {
-    private func getMockQuestion() -> QuestionMain {
-        let question = QuestionMain(
-            q: "Способностью к быстрой смене ... славятся хамелеоны?",
-            a: [
-                (answer: "Цвета", isCorrect: true),
-                (answer: "Размера", isCorrect: false),
-                (answer: "Пола", isCorrect: false),
-                (answer: "Убеждений", isCorrect: false)
-            ],
-            l: 1)
-        return question
+// MARK: - QuestionFactoryDelegate
+extension GameViewContoller: QuestionFactoryDelegate {
+    func didRecieveNextQuestion(_ questionFactory: QuestionFactoryProtocol, question: Question?) {
+        guard let question = question else { return }
+        currentQuestion = question
+        questionViewModel = convert(model: question)
+        guard let questionViewModel = questionViewModel else { return }
+        prepareRound()
+        show(viewModel: questionViewModel)
+        startTimer()
     }
 }

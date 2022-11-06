@@ -1,11 +1,11 @@
 //
-//  QuestionModel.swift
+//  Question.swift
 //  WhoWantToBeMillionaireChallenge
 //
 //  Created by Артем Орлов on 01.11.2022.
 //
 
-struct QuestionMain {
+struct Question {
     typealias typeQuestion = (answer: String, isCorrect: Bool)
     let text: String
     let answers: [typeQuestion]

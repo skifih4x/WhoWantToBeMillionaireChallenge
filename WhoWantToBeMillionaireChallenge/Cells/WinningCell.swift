@@ -17,15 +17,15 @@ final class WinningCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22)
         label.textAlignment = .center
-        label.layer.cornerRadius = 15
+        label.layer.cornerRadius = 10
         label.layer.masksToBounds = true
-        label.backgroundColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
         setupHierarchy()
         setupLayout()
     }
@@ -40,7 +40,6 @@ final class WinningCell: UITableViewCell {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-
             prizeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 3),
             prizeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             prizeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
@@ -48,8 +47,13 @@ final class WinningCell: UITableViewCell {
         ])
     }
 
-    func configure(model: WinModel) {
+    func configure(model: WinModel, isCurrentLevel: Bool) {
         prizeLabel.text = model.prize.rawValue
-        prizeLabel.backgroundColor = model.backgroundcolorLabel
+        if isCurrentLevel {
+            backgroundColor = .systemYellow
+            prizeLabel.font = .boldSystemFont(ofSize: 25)
+        } else {
+            prizeLabel.backgroundColor = model.backgroundcolorLabel
+        }
     }
 }

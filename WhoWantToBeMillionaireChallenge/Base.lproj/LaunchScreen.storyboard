@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,10 +19,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2L" translatesAutoresizingMaskIntoConstraints="NO" id="x8G-W0-rwE">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="millionaire" translatesAutoresizingMaskIntoConstraints="NO" id="Y8A-W2-Dfa">
-                                <rect key="frame" x="46" y="237" width="299" height="298"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="millionaire" translatesAutoresizingMaskIntoConstraints="NO" id="Y8A-W2-Dfa">
+                                <rect key="frame" x="-8.6666666666666572" y="178.66666666666663" width="407.33333333333326" height="407"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Y8A-W2-Dfa" secondAttribute="height" multiplier="299:298" id="VaU-1Z-ACe"/>
+                                    <constraint firstAttribute="width" secondItem="Y8A-W2-Dfa" secondAttribute="height" multiplier="1:1" id="VaU-1Z-ACe"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -31,12 +30,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="x8G-W0-rwE" secondAttribute="bottom" id="Biq-4r-Wb1"/>
-                            <constraint firstItem="Y8A-W2-Dfa" firstAttribute="top" secondItem="RZ7-b1-dy1" secondAttribute="top" constant="190" id="MYp-Cf-AnD"/>
-                            <constraint firstItem="x8G-W0-rwE" firstAttribute="trailing" secondItem="RZ7-b1-dy1" secondAttribute="trailing" id="THT-2p-RQk"/>
+                            <constraint firstItem="x8G-W0-rwE" firstAttribute="trailing" secondItem="OVS-N0-nuT" secondAttribute="trailing" id="THT-2p-RQk"/>
                             <constraint firstItem="x8G-W0-rwE" firstAttribute="top" secondItem="OVS-N0-nuT" secondAttribute="top" id="Wfn-tB-zjv"/>
-                            <constraint firstItem="RZ7-b1-dy1" firstAttribute="trailing" secondItem="Y8A-W2-Dfa" secondAttribute="trailing" constant="45" id="ZcA-Ln-hVW"/>
-                            <constraint firstItem="x8G-W0-rwE" firstAttribute="leading" secondItem="RZ7-b1-dy1" secondAttribute="leading" id="bbE-v9-RFC"/>
-                            <constraint firstItem="Y8A-W2-Dfa" firstAttribute="leading" secondItem="RZ7-b1-dy1" secondAttribute="leading" constant="46" id="pJa-I3-NFs"/>
+                            <constraint firstItem="x8G-W0-rwE" firstAttribute="leading" secondItem="OVS-N0-nuT" secondAttribute="leading" id="bbE-v9-RFC"/>
+                            <constraint firstItem="Y8A-W2-Dfa" firstAttribute="centerY" secondItem="OVS-N0-nuT" secondAttribute="centerY" constant="-40" id="cdv-oR-WBX"/>
+                            <constraint firstItem="Y8A-W2-Dfa" firstAttribute="centerX" secondItem="OVS-N0-nuT" secondAttribute="centerX" id="t4V-KW-HDp"/>
                         </constraints>
                     </view>
                 </viewController>
