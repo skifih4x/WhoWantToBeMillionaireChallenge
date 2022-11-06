@@ -15,4 +15,9 @@
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/WG2XjML/2022-11-06-17-09-55.png" alt="Снимок экрана 2022-11-06 в 17.09.55" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/pJ5GfW2/2022-11-06-17-10-06.png" alt="Снимок экрана 2022-11-06 в 17.10.06" border="0"></a>
 
-
+### В разработке приложения участвовали
+- https://github.com/SShliakhin
+- https://github.com/artemGalay
+- https://github.com/skifih4x
+- https://github.com/MGronse
+- https://github.com/Ingvar1998
