@@ -299,7 +299,7 @@ extension GameViewContoller {
         } else {
             timer.invalidate()
             // TODO: - что надо делать по окончанию таймера?
-            let vc = WinningViewController()
+            let vc = WinningViewController(playerAnswer: PlayerAnswer(level: currentLevel, result: nil))
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -307,7 +307,7 @@ extension GameViewContoller {
     }
     
     @objc func aButtonTapped(sender: UIButton) {
-        print("Нажата кнопка с ответом ...")
+        var isCorrect: Bool?
         playSound.sound(.waitResults)
         timer.invalidate()
         [aButton, bButton, cButton, dButton].forEach { $0.isEnabled = false }
@@ -316,16 +316,19 @@ extension GameViewContoller {
             let correctButton = strongSelf.questionViewModel?.correctAnswerButton
             if sender === correctButton {
                 print("И это правильный ответ!")
+                isCorrect = true
                 strongSelf.playSound.sound(.trueAnswer)
             } else {
                 print("Вы ответили неправильно(")
+                isCorrect = false
                 strongSelf.playSound.sound(.falseAnswer)
                 
                 sender.configuration?.background.backgroundColor = .systemRed
             }
             correctButton?.configuration?.background.backgroundColor = .systemGreen
             
-            let vc = WinningViewController()
+            let playerAnswer = PlayerAnswer(level: strongSelf.currentLevel, result: isCorrect)
+            let vc = WinningViewController(playerAnswer: playerAnswer)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak strongSelf] in
                 strongSelf?.navigationController?.pushViewController(vc, animated: true)
             }
