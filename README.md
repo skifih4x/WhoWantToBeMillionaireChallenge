@@ -12,3 +12,4 @@
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/x5JYqfM/2022-11-06-17-09-51.png" alt="Снимок экрана 2022-11-06 в 17.09.51" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/WG2XjML/2022-11-06-17-09-55.png" alt="Снимок экрана 2022-11-06 в 17.09.55" border="0"></a>
 <a href="https://imgbb.com/"><img src="https://i.ibb.co/pJ5GfW2/2022-11-06-17-10-06.png" alt="Снимок экрана 2022-11-06 в 17.10.06" border="0"></a>
+<a href="https://ibb.co/dPMgSK2"><img src="https://i.ibb.co/Cb82q07/millionier.gif" alt="millionier" border="0"></a>
