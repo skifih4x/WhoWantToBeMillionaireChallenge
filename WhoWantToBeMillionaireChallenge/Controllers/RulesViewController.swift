@@ -23,8 +23,6 @@ class RulesViewController: UIViewController {
 
 extension RulesViewController {
     private func style() {
-        backButton.backgroundColor = .systemCyan
-        
         titleLabel.text = "Правила игры"
         titleLabel.textColor = .white
         titleLabel.font = UIFont.systemFont(ofSize: 25)
@@ -77,7 +75,9 @@ extension RulesViewController {
         textView.isEditable = false
         
         backButton.setTitle("Назад", for: .normal)
-        backButton.layer.cornerRadius = 5
+        backButton.layer.cornerRadius = 10
+        backButton.backgroundColor = .systemCyan
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     }
     
@@ -94,14 +94,14 @@ extension RulesViewController {
         
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 10),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             
             textView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            view.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: 10),
-            textView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10),
+            textView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: 10),
+            textView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -20),
             
-            view.bottomAnchor.constraint(equalToSystemSpacingBelow: backButton.bottomAnchor, multiplier: 10),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 20),
             backButton.leadingAnchor.constraint(equalToSystemSpacingAfter: view.leadingAnchor, multiplier: 7),
             view.trailingAnchor.constraint(equalToSystemSpacingAfter: backButton.trailingAnchor, multiplier: 7),
             backButton.heightAnchor.constraint(equalToConstant: 50)
